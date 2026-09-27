@@ -1,0 +1,347 @@
+<!--
+  Página de produto (produto.html?produto=<slug>).
+  Figma: "🛍️ Produtos" (celular: 289:3391). O conteúdo (galeria, preços,
+  tamanhos, cores, frete) é montado por js/pages/product.js a partir de
+  js/shared/catalog.js; aqui ficam só a estrutura e os textos fixos.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Produto — Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <!-- Topo: galeria de fotos + informações de compra -->
+    <section class="produto-header">
+      <!-- Foto principal + miniaturas (computador) ou setas (celular) -->
+      <div class="produto-galeria" id="produto-galeria"></div>
+
+      <div class="produto-conteudo">
+        <div>
+          <p class="produto-categoria" id="produto-categoria"></p>
+          <p class="produto-titulo" id="produto-titulo"></p>
+          <div class="produto-precos" id="produto-precos"></div>
+          <p class="produto-parcelas" id="produto-parcelas"></p>
+          <p class="produto-tag-unidades" id="produto-tag" hidden></p>
+
+          <!-- Tamanhos e cores: botões gerados por js/pages/product.js -->
+          <div class="produto-opcoes">
+            <div>
+              <h3>Tamanho</h3>
+              <div class="produto-tamanhos" id="produto-tamanhos"></div>
+            </div>
+            <div>
+              <h3>Cor</h3>
+              <div class="produto-cores" id="produto-cores"></div>
+            </div>
+          </div>
+
+          <button type="button" class="produto-favoritar" id="produto-favoritar">
+            <img src="../assets/icons/heart.svg" alt="" />
+            <span>Adicionar aos favoritos</span>
+          </button>
+        </div>
+
+        <!-- Quantidade + "Adicionar ao carrinho" -->
+        <div class="produto-acoes">
+          <div class="produto-qtde">
+            <button type="button" id="qtde-menos" aria-label="Diminuir quantidade">-</button>
+            <span id="qtde-valor">1</span>
+            <button type="button" id="qtde-mais" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <button type="button" class="produto-comprar-btn" id="btn-comprar">
+            <img src="../assets/icons/cart.svg" alt="" />
+            <span>Adicionar ao carrinho</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Descrição do produto + cálculo de frete (#produto-envio-conteudo) -->
+    <section class="produto-meio">
+      <div class="produto-descricao">
+        <h3>Descrição do Produto</h3>
+        <p>Este produto foi desenvolvido para oferecer qualidade, conforto e praticidade no dia a dia. Produzido com materiais selecionados e acabamento cuidadoso, combina durabilidade, estilo e funcionalidade, atendendo às necessidades de diferentes ocasiões.</p>
+        <p>Seu design versátil permite fácil combinação com diversos estilos, tornando-o uma excelente opção para quem busca um produto moderno, resistente e com ótimo custo-benefício. Além disso, foi pensado para proporcionar uma experiência de uso confortável, preservando suas características mesmo com o uso frequente, quando utilizados os cuidados recomendados.</p>
+        <p>Antes de finalizar sua compra, confira as especificações do produto, como tamanho, cor, material e demais informações disponíveis nesta página. As imagens possuem caráter ilustrativo e podem apresentar pequenas variações de tonalidade em função da iluminação, da edição das fotografias ou das configurações de cada monitor ou dispositivo.</p>
+        <h3>Características gerais</h3>
+        <ul>
+          <li>Produto de alta qualidade.</li>
+          <li>Design moderno e versátil.</li>
+          <li>Acabamento cuidadosamente desenvolvido.</li>
+          <li>Ideal para uso diário e diversas ocasiões.</li>
+          <li>Consulte as especificações para informações detalhadas sobre este modelo.</li>
+        </ul>
+      </div>
+
+      <div class="produto-entregas">
+        <p class="entrega-label">Envio:</p>
+        <div id="produto-envio-conteudo"></div>
+      </div>
+    </section>
+
+    <!-- Carrossel "Produtos recomendados" (setas em js/shared/header.js) -->
+    <section class="produto-recomendados">
+      <h2>Produtos recomendados</h2>
+      <div class="recomendados-carrossel">
+        <button class="recomendados-seta" id="recomendados-prev" aria-label="Anterior">
+          <img src="../assets/icons/angle-left.svg" alt="" />
+        </button>
+        <div class="recomendados-lista" id="recomendados-lista">
+          <a class="produto" href="produto.html?produto=cropped">
+            <div class="produto-imagem">
+              <img src="../assets/images/produto-cropped.png" alt="Cropped recorte preto" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Cropped recorte preto</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <article class="produto">
+            <div class="produto-imagem produto-indisponivel">
+              <img src="../assets/images/produto-calca-indisponivel.png" alt="Calça moletom wide leg" />
+              <div class="indisponivel-overlay"><span>Indisponível</span></div>
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Calça moletom wide leg</p>
+              <p class="produto-preco">R$99,90</p>
+              <p class="produto-parcelas">10x de R$9,90</p>
+            </div>
+          </article>
+          <a class="produto" href="produto.html?produto=conjunto">
+            <div class="produto-imagem">
+              <img src="../assets/images/categoria-conjuntos.png" alt="Conjunto moletom forrado por dentro" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Conjunto moletom (forrado por dentro)</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <a class="produto" href="produto.html?produto=blusa">
+            <div class="produto-imagem">
+              <img src="../assets/images/produto-blusa-trico.png" alt="Blusa tricô modal" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-tag">Últimas unidades!</p>
+              <p class="produto-nome">Blusa tricô modal</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <a class="produto" href="produto.html?produto=cropped">
+            <div class="produto-imagem">
+              <img src="../assets/images/produto-cropped.png" alt="Cropped recorte preto" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Cropped recorte preto</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <article class="produto">
+            <div class="produto-imagem produto-indisponivel">
+              <img src="../assets/images/produto-calca-indisponivel.png" alt="Calça moletom wide leg" />
+              <div class="indisponivel-overlay"><span>Indisponível</span></div>
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Calça moletom wide leg</p>
+              <p class="produto-preco">R$99,90</p>
+              <p class="produto-parcelas">10x de R$9,90</p>
+            </div>
+          </article>
+          <a class="produto" href="produto.html?produto=conjunto">
+            <div class="produto-imagem">
+              <img src="../assets/images/categoria-conjuntos.png" alt="Conjunto moletom forrado por dentro" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Conjunto moletom (forrado por dentro)</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <a class="produto" href="produto.html?produto=blusa">
+            <div class="produto-imagem">
+              <img src="../assets/images/produto-blusa-trico.png" alt="Blusa tricô modal" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-tag">Últimas unidades!</p>
+              <p class="produto-nome">Blusa tricô modal</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <a class="produto" href="produto.html?produto=cropped">
+            <div class="produto-imagem">
+              <img src="../assets/images/produto-cropped.png" alt="Cropped recorte preto" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Cropped recorte preto</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <article class="produto">
+            <div class="produto-imagem produto-indisponivel">
+              <img src="../assets/images/produto-calca-indisponivel.png" alt="Calça moletom wide leg" />
+              <div class="indisponivel-overlay"><span>Indisponível</span></div>
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Calça moletom wide leg</p>
+              <p class="produto-preco">R$99,90</p>
+              <p class="produto-parcelas">10x de R$9,90</p>
+            </div>
+          </article>
+          <a class="produto" href="produto.html?produto=conjunto">
+            <div class="produto-imagem">
+              <img src="../assets/images/categoria-conjuntos.png" alt="Conjunto moletom forrado por dentro" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-nome">Conjunto moletom (forrado por dentro)</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+          <a class="produto" href="produto.html?produto=blusa">
+            <div class="produto-imagem">
+              <img src="../assets/images/produto-blusa-trico.png" alt="Blusa tricô modal" />
+            </div>
+            <div class="produto-info">
+              <p class="produto-tag">Últimas unidades!</p>
+              <p class="produto-nome">Blusa tricô modal</p>
+              <p class="produto-preco">R$44,99</p>
+              <p class="produto-parcelas">10x de R$4,99</p>
+            </div>
+          </a>
+        </div>
+        <button class="recomendados-seta" id="recomendados-next" aria-label="Próximo">
+          <img src="../assets/icons/angle-right.svg" alt="" />
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante do WhatsApp (mesmo das telas de políticas) -->
+  <a class="whatsapp-float" href="https://wa.me/5511957971513" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <img class="whatsapp-circle" src="../assets/icons/whatsapp-float-circle.svg" alt="" />
+    <img class="whatsapp-icon" src="../assets/icons/whatsapp-float-icon.png" alt="" />
+  </a>
+
+  <script src="../js/shared/header.js"></script>
+  <script src="../js/shared/catalog.js"></script>
+  <script src="../js/pages/product.js"></script>
+</body>
+</html>

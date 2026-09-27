@@ -1,0 +1,390 @@
+<!--
+  Fluxo de criação de conta (registro.html).
+  Figma: node 171:184 "📝 Tela de Registro" (+ 242:1017 mobile) e
+         node 171:185 "📍 Tela de Endereço" (+ 289:3392 mobile).
+  Implementado como UMA página com 5 "passos" controlados por js/pages/registro.js:
+    1) Dados pessoais  2) Informações de contato  3) Crie sua senha
+    4) Adicionar endereço (aparece logo após criar a senha)
+    5) Sucesso ("Bem-vinda!")
+  Só os passos 1-3 aparecem no indicador de progresso, igual ao Figma.
+  Acessível pelo botão "CRIAR CONTA" no painel de login (js/shared/header.js).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crie sua conta — Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <div class="registro-content">
+
+      <!-- Passos 1 a 3: cabeçalho + card com indicador de progresso -->
+      <div id="registro-header-passos">
+        <div class="registro-titulo">
+          <h1 id="registro-titulo-texto">Crie sua conta</h1>
+          <p id="registro-subtitulo-texto">Preencha os campos abaixo para iniciar o cadastro.</p>
+        </div>
+      </div>
+
+      <!-- ===================== Passo 1: Dados pessoais ===================== -->
+      <form class="registro-card" id="passo-1" data-passo="1">
+        <div class="registro-progresso">
+          <div class="registro-passo ativo" data-passo-num="1">
+            <span class="registro-passo-num">1</span>
+            <span class="registro-passo-label">Dados pessoais</span>
+          </div>
+          <div class="registro-progresso-linha"></div>
+          <div class="registro-passo" data-passo-num="2">
+            <span class="registro-passo-num">2</span>
+            <span class="registro-passo-label">Informações de contato</span>
+          </div>
+          <div class="registro-progresso-linha"></div>
+          <div class="registro-passo" data-passo-num="3">
+            <span class="registro-passo-num">3</span>
+            <span class="registro-passo-label">Crie sua senha</span>
+          </div>
+        </div>
+
+        <div class="registro-fields">
+          <div class="registro-campo">
+            <label for="reg-nome">Nome:</label>
+            <input class="registro-input" type="text" id="reg-nome" placeholder="Primeiro nome" />
+          </div>
+          <div class="registro-campo">
+            <label for="reg-sobrenome">Sobrenome:</label>
+            <input class="registro-input" type="text" id="reg-sobrenome" placeholder="Sobrenome completo" />
+          </div>
+          <div class="registro-campo">
+            <label for="reg-nascimento">Data de nascimento:</label>
+            <div class="registro-campo-data">
+              <input class="registro-input" type="text" id="reg-nascimento" placeholder="dd/mm/aaaa" />
+              <img src="../assets/icons/calendar-days.svg" alt="" />
+            </div>
+          </div>
+          <div class="registro-campo">
+            <label for="reg-genero">Gênero:</label>
+            <select class="registro-select" id="reg-genero">
+              <option value="" disabled selected>Selecione seu gênero</option>
+              <option value="feminino">Feminino</option>
+              <option value="masculino">Masculino</option>
+              <option value="nao-binario">Não-binário</option>
+              <option value="prefiro-nao-informar">Prefiro não informar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="registro-actions">
+          <button type="submit" class="registro-btn-primario">CONTINUAR</button>
+          <button type="button" class="registro-link-secundario" data-action="abrir-login">Já tem uma conta? Faça login</button>
+        </div>
+      </form>
+
+      <!-- ===================== Passo 2: Informações de contato ===================== -->
+      <form class="registro-card" id="passo-2" data-passo="2" hidden>
+        <div class="registro-progresso">
+          <div class="registro-passo" data-passo-num="1">
+            <span class="registro-passo-num">1</span>
+            <span class="registro-passo-label">Dados pessoais</span>
+          </div>
+          <div class="registro-progresso-linha"></div>
+          <div class="registro-passo ativo" data-passo-num="2">
+            <span class="registro-passo-num">2</span>
+            <span class="registro-passo-label">Informações de contato</span>
+          </div>
+          <div class="registro-progresso-linha"></div>
+          <div class="registro-passo" data-passo-num="3">
+            <span class="registro-passo-num">3</span>
+            <span class="registro-passo-label">Crie sua senha</span>
+          </div>
+        </div>
+
+        <div class="registro-fields">
+          <div class="registro-campo">
+            <label for="reg-email">Email:</label>
+            <input class="registro-input" type="email" id="reg-email" placeholder="email@email.com" />
+            <p class="registro-erro-msg" id="reg-email-erro" hidden></p>
+          </div>
+          <div class="registro-campo">
+            <label>Telefone:</label>
+            <div class="registro-tel-linha">
+              <div class="registro-tel-pais">
+                <img src="../assets/images/bandeira-brasil.png" alt="Brasil" />
+                <img src="../assets/icons/angle-down-mini.svg" alt="" />
+              </div>
+              <input class="registro-input" type="tel" id="reg-telefone" placeholder="Número de telefone" />
+            </div>
+          </div>
+          <div class="registro-campo">
+            <label for="reg-cpf">CPF:</label>
+            <input class="registro-input" type="text" id="reg-cpf" placeholder="000.000.000-00" />
+            <p class="registro-erro-msg" id="reg-cpf-erro" hidden></p>
+          </div>
+        </div>
+
+        <div class="registro-actions">
+          <button type="submit" class="registro-btn-primario">CONTINUAR</button>
+          <button type="button" class="registro-link-secundario" data-action="voltar" data-para="1">Voltar para o passo anterior</button>
+        </div>
+      </form>
+
+      <!-- ===================== Passo 3: Crie sua senha ===================== -->
+      <form class="registro-card" id="passo-3" data-passo="3" hidden>
+        <div class="registro-progresso">
+          <div class="registro-passo" data-passo-num="1">
+            <span class="registro-passo-num">1</span>
+            <span class="registro-passo-label">Dados pessoais</span>
+          </div>
+          <div class="registro-progresso-linha"></div>
+          <div class="registro-passo" data-passo-num="2">
+            <span class="registro-passo-num">2</span>
+            <span class="registro-passo-label">Informações de contato</span>
+          </div>
+          <div class="registro-progresso-linha"></div>
+          <div class="registro-passo ativo" data-passo-num="3">
+            <span class="registro-passo-num">3</span>
+            <span class="registro-passo-label">Crie sua senha</span>
+          </div>
+        </div>
+
+        <div class="registro-fields">
+          <div class="registro-campo">
+            <label for="reg-senha">Senha:</label>
+            <input class="registro-input" type="password" id="reg-senha" placeholder="Sua senha" />
+          </div>
+
+          <div class="requisitos">
+            <div class="requisito-item" id="req-tamanho">
+              <span class="requisito-icone"></span>
+              <span>No mínimo 8 caracteres</span>
+            </div>
+            <div class="requisito-item" id="req-maiuscula">
+              <span class="requisito-icone"></span>
+              <span>Uma letra maiúscula</span>
+            </div>
+            <div class="requisito-item" id="req-numero">
+              <span class="requisito-icone"></span>
+              <span>Um número</span>
+            </div>
+            <div class="requisito-item" id="req-especial">
+              <span class="requisito-icone"></span>
+              <span>Um caractere especial (@, #, $, etc.)</span>
+            </div>
+          </div>
+
+          <div class="registro-campo">
+            <label for="reg-confirmar-senha">Confirmar senha:</label>
+            <input class="registro-input" type="password" id="reg-confirmar-senha" placeholder="Confirme sua senha" />
+          </div>
+
+          <div class="requisitos">
+            <div class="requisito-item" id="req-coincide">
+              <span class="requisito-icone"></span>
+              <span>As senhas digitadas coincidem</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="registro-actions">
+          <button type="submit" class="registro-btn-primario">CRIAR CONTA</button>
+          <button type="button" class="registro-link-secundario" data-action="voltar" data-para="2">Voltar para o passo anterior</button>
+        </div>
+      </form>
+
+      <!-- ===================== Passo 4: Adicionar endereço ===================== -->
+      <!-- Sem indicador de progresso, igual ao Figma (node 171:185 é uma seção separada). -->
+      <div id="registro-header-endereco" hidden>
+        <div class="registro-titulo">
+          <h1>Adicionar endereço</h1>
+          <p>Preencha os campos abaixo para cadastrar seu endereço de entrega.</p>
+        </div>
+      </div>
+
+      <form class="registro-card" id="passo-4" data-passo="4" hidden style="background: rgba(255, 9, 156, 0.15);">
+        <div class="registro-fields">
+          <div class="registro-campo">
+            <label for="reg-cep">CEP</label>
+            <input class="registro-input" type="text" id="reg-cep" placeholder="00000-000" />
+            <p class="registro-erro-msg" id="reg-cep-erro" hidden></p>
+            <div class="cep-actions" style="margin-top: 4px;">
+              <button type="button" class="dp-btn-mini" id="reg-calcular-cep">Calcular</button>
+              <span class="dp-link-inline">Não sei meu CEP</span>
+            </div>
+          </div>
+
+          <div class="registro-campo-linha-dupla">
+            <div class="registro-campo">
+              <label for="reg-endereco">Endereço:</label>
+              <input class="registro-input" type="text" id="reg-endereco" placeholder="Rua" />
+            </div>
+            <div class="registro-campo largura-fixa">
+              <label for="reg-numero">Número:</label>
+              <input class="registro-input" type="text" id="reg-numero" placeholder="Número" />
+            </div>
+          </div>
+
+          <div class="registro-campo-linha-dupla">
+            <div class="registro-campo">
+              <label for="reg-bairro">Bairro:</label>
+              <input class="registro-input" type="text" id="reg-bairro" placeholder="Bairro" />
+            </div>
+            <div class="registro-campo">
+              <label for="reg-cidade">Cidade:</label>
+              <input class="registro-input" type="text" id="reg-cidade" placeholder="Cidade" />
+            </div>
+            <div class="registro-campo largura-fixa">
+              <label for="reg-uf">UF:</label>
+              <input class="registro-input" type="text" id="reg-uf" placeholder="UF" maxlength="2" />
+            </div>
+          </div>
+
+          <div class="registro-campo">
+            <label for="reg-complemento">Complemento (opcional):</label>
+            <input class="registro-input" type="text" id="reg-complemento" placeholder="Complemento" />
+          </div>
+
+          <div class="registro-checkbox-linha">
+            <input type="checkbox" id="reg-endereco-padrao" />
+            <label for="reg-endereco-padrao">Salvar endereço padrão</label>
+          </div>
+        </div>
+
+        <div class="registro-actions">
+          <button type="submit" class="registro-btn-primario">ADICIONAR ENDEREÇO</button>
+          <button type="button" class="registro-link-secundario" data-action="abrir-login">Já tem uma conta? Faça login</button>
+        </div>
+      </form>
+
+      <!-- ===================== Passo 5: Sucesso ===================== -->
+      <div class="registro-sucesso-wrap" id="passo-5" data-passo="5" hidden>
+        <div class="registro-sucesso-card">
+          <div class="registro-sucesso-icone">
+            <img src="../assets/icons/party-popper.svg" alt="" />
+          </div>
+          <div class="registro-sucesso-texto">
+            <h2>Bem-vinda!</h2>
+            <p>Sua conta foi criada com sucesso. Agora você pode aproveitar todas as ofertas da nossa loja.</p>
+          </div>
+          <button type="button" class="registro-btn-primario" id="reg-ir-para-loja">IR PARA A LOJA</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- header.js: dropdowns do header | registro.js: fluxo de criação de conta -->
+  <script src="../js/shared/header.js"></script>
+  <script src="../js/pages/registro.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!--
+  Resultados de busca e de categoria.
+  Figma: "🔍 Tela de Pesquisa" (celular: 289:3390). Aberta pela barra de
+  busca (?q=termo) ou pelo menu de categorias (?categoria=...). Os cards
+  são desenhados por js/pages/pesquisa.js.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todos os produtos — Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <!-- "Buscando por: ..." — o termo/categoria é preenchido por js/pages/pesquisa.js -->
+    <div class="pesquisa-titulo">
+      <h1>Buscando por: <span id="termo-busca">Pesquisa</span></h1>
+    </div>
+
+    <!-- "Filtrar por" (computador) e "Ordenar produtos por" com sua lista de opções -->
+    <div class="pesquisa-topo">
+      <h2 class="so-desktop-bloco">Filtrar por:</h2>
+      <div class="ordenar-itens">
+        <span>Ordenar produtos por:</span>
+        <div class="ordenar-input" id="ordenar-input">
+          <span id="ordenar-selecionado">Selecione a ordem</span>
+          <img src="../assets/icons/angle-down.svg" alt="" />
+        </div>
+        <div class="ordenar-lista" id="ordenar-lista" hidden>
+          <button type="button" data-ordem="relevancia">Relevância</button>
+          <button type="button" data-ordem="vendidos">Mais vendidos</button>
+          <button type="button" data-ordem="menor-preco">Menor preço</button>
+          <button type="button" data-ordem="maior-preco">Maior preço</button>
+          <button type="button" data-ordem="az">Ordem alfabética (A-Z)</button>
+          <button type="button" data-ordem="za">Ordem alfabética (Z-A)</button>
+        </div>
+      </div>
+      <!-- Celular: "Filtrar por:" vira um campo que abre a folha de filtros
+           (Figma 301:2959 / 303:3039). No computador o filtro fica na lateral. -->
+      <div class="ordenar-itens so-mobile-bloco">
+        <span>Filtrar por:</span>
+        <button type="button" class="ordenar-input" id="btn-abrir-filtros" aria-controls="filtro-sidebar">
+          <span>Selecione os filtros</span>
+          <img src="../assets/icons/angle-down.svg" alt="" />
+        </button>
+      </div>
+    </div>
+
+    <div class="filtro-fundo" id="filtro-fundo" hidden></div>
+
+    <!-- Filtros (lateral no computador, folha de baixo no celular) + grade de resultados -->
+    <div class="pesquisa-conteudo">
+      <aside class="filtro-sidebar" id="filtro-sidebar">
+        <h2 class="filtro-folha-titulo so-mobile-bloco">Filtro</h2>
+        <div class="filtro-grupo">
+          <h3>Tamanho</h3>
+          <div class="filtro-lista">
+            <label class="filtro-item"><input type="checkbox" />PP</label>
+            <label class="filtro-item"><input type="checkbox" />P (36 a 38)</label>
+            <label class="filtro-item"><input type="checkbox" />M (40 a 42)</label>
+            <label class="filtro-item"><input type="checkbox" />G (44 a 46)</label>
+            <label class="filtro-item"><input type="checkbox" />GG</label>
+          </div>
+        </div>
+        <div class="filtro-grupo">
+          <h3>Cor</h3>
+          <div class="filtro-lista">
+            <label class="filtro-item"><input type="checkbox" />Preto <img src="../assets/icons/cor-preto.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" />Branco <img src="../assets/icons/cor-branco.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" />Azul <img src="../assets/icons/cor-azul.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" />Amarelo <img src="../assets/icons/cor-amarelo.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" />Verde <img src="../assets/icons/cor-verde.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" />Rosa <img src="../assets/icons/cor-rosa.svg" alt="" /></label>
+          </div>
+        </div>
+        <div class="filtro-grupo">
+          <h3>Preço</h3>
+          <div class="filtro-preco-campo">
+            <label>Preço mínimo:</label>
+            <input type="text" placeholder="Mín." />
+          </div>
+          <div class="filtro-preco-campo">
+            <label>Preço máximo:</label>
+            <input type="text" placeholder="Máx." />
+          </div>
+        </div>
+      </aside>
+
+      <!-- Cards dos resultados, desenhados por js/pages/pesquisa.js -->
+      <div class="pesquisa-produtos" id="pesquisa-produtos"></div>
+    </div>
+  </main>
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante do WhatsApp (mesmo das telas de políticas) -->
+  <a class="whatsapp-float" href="https://wa.me/5511957971513" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <img class="whatsapp-circle" src="../assets/icons/whatsapp-float-circle.svg" alt="" />
+    <img class="whatsapp-icon" src="../assets/icons/whatsapp-float-icon.png" alt="" />
+  </a>
+
+  <script src="../js/shared/header.js"></script>
+  <script src="../js/pages/pesquisa.js"></script>
+</body>
+</html>

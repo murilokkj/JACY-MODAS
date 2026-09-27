@@ -1,0 +1,216 @@
+<!--
+  Política de privacidade (texto estático).
+  Figma: "📄 Políticas" (celular: 289:3183).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade — Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <div class="politica-main">
+      <div class="politica-title-block">
+        <h1>POLÍTICA DE PRIVACIDADE</h1>
+        <p class="politica-atualizacao">Última atualização: agosto de 2026</p>
+      </div>
+
+      <section class="legal-section">
+        <h2>1. Introdução</h2>
+        <div class="legal-section-body">
+          <p>A Jacy Modas tem o compromisso de proteger a privacidade e a segurança dos dados pessoais de seus clientes e usuários. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e compartilhamos suas informações ao visitar nossa loja virtual ou interagir conosco.</p>
+          <p>Ao utilizar nossos serviços, você concorda com a coleta e o uso de informações de acordo com esta política, formulada em estrita conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).</p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. Dados Pessoais Coletados</h2>
+        <div class="legal-section-body">
+          <p>Nós coletamos apenas as informações necessárias para viabilizar suas compras e oferecer a melhor experiência possível. Esses dados incluem:</p>
+          <ul class="bullet-list">
+            <li>Dados Cadastrais: nome completo, número de CPF, e data de nascimento.</li>
+            <li>Informações de Contato: endereço de e-mail, número de telefone celular (WhatsApp) e telefone fixo.</li>
+            <li>Dados de Entrega: endereço completo de entrega e cobrança (rua, número, complemento, bairro, cidade, estado e CEP).</li>
+            <li>Dados de Pagamento: informações criptografadas de cartões de crédito e/ou chaves de transações PIX.</li>
+            <li>Dados de Navegação: endereço IP, tipo de navegador, páginas visualizadas em nossa loja, tempo de visita e cookies.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Como Utilizamos Seus Dados</h2>
+        <div class="legal-section-body">
+          <p>Os dados coletados são tratados com base em finalidades legítimas e transparentes, sendo utilizados para:</p>
+          <ul class="bullet-list">
+            <li>Processar e gerenciar suas compras, faturamento e entregas de mercadorias.</li>
+            <li>Enviar atualizações sobre o andamento do seu pedido e códigos de rastreamento.</li>
+            <li>Prestar suporte ao cliente e responder a dúvidas, trocas ou devoluções via WhatsApp e telefone.</li>
+            <li>Enviar novidades, promoções e cupons exclusivos (desde que previamente autorizado por você).</li>
+            <li>Melhorar o desempenho técnico de nossa plataforma e prevenir fraudes.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Compartilhamento de Dados</h2>
+        <div class="legal-section-body">
+          <p>Não vendemos, alugamos ou comercializamos seus dados pessoais para terceiros. O compartilhamento ocorre apenas quando indispensável para a prestação de nossos serviços, limitado a:</p>
+          <ul class="bullet-list">
+            <li>Empresas de Logística e Transportadoras: para garantir a entrega segura de suas encomendas.</li>
+            <li>Intermediadores e Gateways de Pagamento: para processamento seguro de transações financeiras sob padrões internacionais de segurança.</li>
+            <li>Autoridades Judiciais ou Administrativas: em cumprimento de obrigação legal ou regulatória.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Armazenamento e Segurança</h2>
+        <div class="legal-section-body">
+          <p>Todas as suas informações são armazenadas em servidores seguros com tecnologias de criptografia de ponta (SSL) para blindagem de dados contra acessos não autorizados, perdas ou vazamentos.</p>
+          <p>Mantemos os seus dados pelo período estritamente necessário para cumprir as finalidades descritas nesta política e em cumprimento a obrigações fiscais e jurídicas vigentes.</p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>6. Seus Direitos (LGPD)</h2>
+        <div class="legal-section-body">
+          <p>Como titular dos dados, a LGPD garante a você total controle sobre suas informações. Você pode exercer a qualquer momento os seguintes direitos:</p>
+          <ul class="bullet-list">
+            <li>Confirmação de que seus dados estão sendo tratados e livre acesso a eles.</li>
+            <li>Correção de dados incompletos, inexatos ou desatualizados em seu painel do cliente.</li>
+            <li>Eliminação de dados pessoais desnecessários ou tratados em desacordo com a lei.</li>
+            <li>Revogação do consentimento para envio de comunicações de marketing e newsletter.</li>
+            <li>Portabilidade de dados para outro fornecedor de serviço.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>7. Contato do Encarregado (DPO)</h2>
+        <div class="legal-section-body">
+          <p>Se você tiver dúvidas sobre nossa Política de Privacidade, desejar fazer reclamações ou solicitar a exclusão de seus dados, entre em contato através do atendimento de suporte via WhatsApp indicado em nosso canal de contato.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/5511957971513" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <img class="whatsapp-circle" src="../assets/icons/whatsapp-float-circle.svg" alt="" />
+    <img class="whatsapp-icon" src="../assets/icons/whatsapp-float-icon.png" alt="" />
+  </a>
+
+  <script src="../js/shared/header.js"></script>
+</body>
+</html>

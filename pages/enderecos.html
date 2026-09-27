@@ -1,0 +1,181 @@
+<!--
+  Tela "Meus endereços".
+  Figma: node 396:3872 "📍 Gerenciamento de Endereços" — 3 estados:
+  padrão (396:3314), edição de um endereço (396:3473) e seleção múltipla
+  (396:3642). Versão para celulares: node 402:3920 (mesmo HTML, via CSS).
+  Assim como em minha-conta.html, os 3 estados são UMA página só: os cartões
+  são desenhados por js/pages/enderecos.js conforme o modo atual.
+  Acessível pelo link "Meus endereços" no menu do usuário logado e pelo
+  cartão "Meus endereços" em minha-conta.html.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Endereços — Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <div class="enderecos-main">
+      <!-- Trilha de navegação: Início > Minha conta > Meus endereços -->
+      <nav class="enderecos-breadcrumb">
+        <a href="index.html">Início</a>
+        <span>&gt;</span>
+        <a href="minha-conta.html">Minha conta</a>
+        <span>&gt;</span>
+        <span class="atual">Meus endereços</span>
+      </nav>
+
+      <div class="enderecos-titulo">
+        <div class="titulo-linha">
+          <span class="icone-circulo"><img src="../assets/icons/map-pin.svg" alt="" /></span>
+          <h1>Meus Endereços</h1>
+        </div>
+        <p>Gerencie seus endereços cadastrados para entregas rápidas e acompanhe suas preferências de envio.</p>
+      </div>
+
+      <!-- "Selecionar endereços" vira "Cancelar Seleção" no modo de seleção -->
+      <div class="enderecos-acoes">
+        <button type="button" class="btn-enderecos-secundario" id="btn-selecionar">Selecionar endereços</button>
+        <button type="button" class="btn-enderecos-primario" id="btn-adicionar">+ Adicionar endereço</button>
+      </div>
+
+      <!-- Preenchido por js/pages/enderecos.js (renderLista) -->
+      <div class="enderecos-lista" id="enderecos-lista"></div>
+
+      <!-- Barra de ações da seleção múltipla (Figma 396:3752 / 402:3841) -->
+      <div class="enderecos-barra-selecao" id="barra-selecao" hidden>
+        <div class="contagem">
+          <span class="marcador" id="selecao-contagem">0</span>
+          <span><span class="so-desktop">Endereços selecionados</span><span class="so-mobile">Selecionados</span></span>
+        </div>
+        <div class="botoes">
+          <button type="button" class="btn-remover-selecionados" id="btn-remover-selecionados">
+            <span class="so-desktop">Remover selecionados</span><span class="so-mobile">Remover</span>
+          </button>
+          <button type="button" class="btn-definir-principal" id="btn-definir-principal">
+            <span class="so-desktop">Definir como principal</span><span class="so-mobile">Definir Principal</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- header.js: dropdowns do header | enderecos.js: lista, edição e seleção -->
+  <script src="../js/shared/header.js"></script>
+  <script src="../js/shared/enderecos-dados.js"></script>
+  <script src="../js/pages/enderecos.js"></script>
+</body>
+</html>

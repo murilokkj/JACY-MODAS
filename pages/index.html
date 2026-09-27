@@ -1,0 +1,420 @@
+<!--
+  Tela inicial.
+  Figma: "Tela Inicial" (celular: 196:583). Banner, categorias,
+  "Novidades" (cards de produto) e carrossel de "Avaliações" (js/pages/index.js).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <!-- Banner da campanha atual -->
+    <section class="banner">
+      <img src="../assets/images/banner-sorteio.png" alt="Sorteio: acerte o placar e concorra a uma camiseta do Brasil" />
+    </section>
+
+    <!-- Atalhos de categorias (no celular ficam só no menu hambúrguer) -->
+    <section class="categorias">
+      <a href="pesquisa.html?categoria=camisas" class="categoria">
+        <span class="categoria-img"><img src="../assets/images/categoria-bodys.png" alt="" /></span>
+        <span class="categoria-nome">Camisas</span>
+      </a>
+      <a href="pesquisa.html?categoria=calcas" class="categoria">
+        <span class="categoria-img"><img src="../assets/images/categoria-bodys.png" alt="" /></span>
+        <span class="categoria-nome">Calças</span>
+      </a>
+      <a href="produto.html?produto=vestido-promocao" class="categoria">
+        <span class="categoria-img"><img src="../assets/images/categoria-vestidos.png" alt="" /></span>
+        <span class="categoria-nome">Vestidos</span>
+      </a>
+      <a href="produto.html?produto=conjunto" class="categoria">
+        <span class="categoria-img"><img src="../assets/images/categoria-conjuntos.png" alt="" /></span>
+        <span class="categoria-nome">Conjuntos</span>
+      </a>
+      <a href="produto.html?produto=cropped" class="categoria">
+        <span class="categoria-img"><img src="../assets/images/produto-cropped.png" alt="" /></span>
+        <span class="categoria-nome">Croppeds</span>
+      </a>
+    </section>
+
+    <!-- "Novidades": título + fileiras de cards de produto. Produto
+         indisponível é um <article> sem link, com a faixa "Indisponível". -->
+    <section class="novidades">
+      <h2>Novidades</h2>
+    </section>
+
+    <section class="produtos" aria-label="Produtos em destaque">
+      <a class="produto" href="produto.html?produto=cropped">
+        <div class="produto-imagem">
+          <img src="../assets/images/produto-cropped.png" alt="Cropped recorte preto" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Cropped recorte preto</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+
+      <article class="produto">
+        <div class="produto-imagem produto-indisponivel">
+          <img src="../assets/images/produto-calca-indisponivel.png" alt="Calça moletom wide leg" />
+          <div class="indisponivel-overlay">
+            <span>Indisponível</span>
+          </div>
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Calça moletom wide leg</p>
+          <p class="produto-preco">R$99,90</p>
+          <p class="produto-parcelas">10x de R$9,90</p>
+        </div>
+      </article>
+
+      <a class="produto" href="produto.html?produto=conjunto">
+        <div class="produto-imagem">
+          <img src="../assets/images/categoria-conjuntos.png" alt="Conjunto moletom forrado por dentro" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Conjunto moletom (forrado por dentro)</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+
+      <a class="produto" href="produto.html?produto=blusa">
+        <div class="produto-imagem">
+          <img src="../assets/images/produto-blusa-trico.png" alt="Blusa tricô modal" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-tag">Últimas unidades!</p>
+          <p class="produto-nome">Blusa tricô modal</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="produtos" aria-label="Produtos em destaque">
+      <a class="produto" href="produto.html?produto=cropped">
+        <div class="produto-imagem">
+          <img src="../assets/images/produto-cropped.png" alt="Cropped recorte preto" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Cropped recorte preto</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+
+      <article class="produto">
+        <div class="produto-imagem produto-indisponivel">
+          <img src="../assets/images/produto-calca-indisponivel.png" alt="Calça moletom wide leg" />
+          <div class="indisponivel-overlay">
+            <span>Indisponível</span>
+          </div>
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Calça moletom wide leg</p>
+          <p class="produto-preco">R$99,90</p>
+          <p class="produto-parcelas">10x de R$9,90</p>
+        </div>
+      </article>
+
+      <a class="produto" href="produto.html?produto=conjunto">
+        <div class="produto-imagem">
+          <img src="../assets/images/categoria-conjuntos.png" alt="Conjunto moletom forrado por dentro" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Conjunto moletom (forrado por dentro)</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+
+      <a class="produto" href="produto.html?produto=blusa">
+        <div class="produto-imagem">
+          <img src="../assets/images/produto-blusa-trico.png" alt="Blusa tricô modal" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-tag">Últimas unidades!</p>
+          <p class="produto-nome">Blusa tricô modal</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="produtos" aria-label="Produtos em destaque">
+      <a class="produto" href="produto.html?produto=cropped">
+        <div class="produto-imagem">
+          <img src="../assets/images/produto-cropped.png" alt="Cropped recorte preto" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Cropped recorte preto</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+
+      <article class="produto">
+        <div class="produto-imagem produto-indisponivel">
+          <img src="../assets/images/produto-calca-indisponivel.png" alt="Calça moletom wide leg" />
+          <div class="indisponivel-overlay">
+            <span>Indisponível</span>
+          </div>
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Calça moletom wide leg</p>
+          <p class="produto-preco">R$99,90</p>
+          <p class="produto-parcelas">10x de R$9,90</p>
+        </div>
+      </article>
+
+      <a class="produto" href="produto.html?produto=conjunto">
+        <div class="produto-imagem">
+          <img src="../assets/images/categoria-conjuntos.png" alt="Conjunto moletom forrado por dentro" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-nome">Conjunto moletom (forrado por dentro)</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+
+      <a class="produto" href="produto.html?produto=blusa">
+        <div class="produto-imagem">
+          <img src="../assets/images/produto-blusa-trico.png" alt="Blusa tricô modal" />
+        </div>
+        <div class="produto-info">
+          <p class="produto-tag">Últimas unidades!</p>
+          <p class="produto-nome">Blusa tricô modal</p>
+          <p class="produto-preco">R$44,99</p>
+          <p class="produto-parcelas">10x de R$4,99</p>
+        </div>
+      </a>
+    </section>
+
+    <!-- Carrossel de avaliações de clientes (setas controladas por js/pages/index.js) -->
+    <section class="avaliacoes">
+      <h2>Avaliações</h2>
+      <div class="avaliacoes-carrossel">
+        <button class="avaliacoes-seta" id="avaliacao-prev" aria-label="Avaliação anterior">
+          <img src="../assets/icons/angle-left.svg" alt="" />
+        </button>
+
+        <div class="avaliacoes-lista" id="avaliacoes-lista">
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Mariana Costa – Campinas/SP</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Fiquei muito satisfeita com a minha compra! As peças chegaram rápido, vestem super bem e a qualidade é excelente. Com certeza voltarei a comprar e já indiquei a loja para minhas amigas."</p>
+          </article>
+
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Juliana Ferreira – Curitiba/PR</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Estou encantada com a qualidade das roupas! O acabamento é impecável, o tamanho veio certinho e a entrega foi bem rápida. Já fiz meu segundo pedido e continuo adorando cada peça."</p>
+          </article>
+
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Beatriz Almeida – Belo Horizonte/MG</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Amei as peças! Chegou tudo certinho e antes do prazo. Recomendo demais."</p>
+          </article>
+
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Camila Rodrigues – Porto Alegre/RS</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" class="vazia" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Gostei bastante da qualidade do tecido e do caimento das peças. O único ponto foi que a entrega demorou um pouco mais do que eu esperava, mas no fim valeu a pena. Já estou de olho em outras peças da loja para a próxima compra."</p>
+          </article>
+
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Fernanda Lima – Recife/PE</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Já comprei em vários sites de roupa e posso dizer que a Jaacy Modas está entre os melhores. As peças chegam bem embaladas, o tecido é de ótima qualidade e os modelos são lindos nas fotos e ainda mais lindos ao vivo. O atendimento pelo WhatsApp também foi super atencioso, tiraram todas as minhas dúvidas sobre tamanho antes da compra. Com certeza vou continuar comprando aqui."</p>
+          </article>
+
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Patrícia Souza – Salvador/BA</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" class="vazia" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Muito bom custo-benefício. O conjunto que comprei veio exatamente como na foto e o tamanho serviu perfeitamente."</p>
+          </article>
+
+          <article class="avaliacao">
+            <p class="avaliacao-autor">Larissa Martins – Florianópolis/SC</p>
+            <div class="avaliacao-estrelas">
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+              <img src="../assets/icons/star.svg" alt="" />
+            </div>
+            <p class="avaliacao-texto">"Simplesmente perfeito! Virei cliente fiel da loja."</p>
+          </article>
+        </div>
+
+        <button class="avaliacoes-seta" id="avaliacao-next" aria-label="Próxima avaliação">
+          <img src="../assets/icons/angle-right.svg" alt="" />
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante do WhatsApp (mesmo das telas de políticas) -->
+  <a class="whatsapp-float" href="https://wa.me/5511957971513" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <img class="whatsapp-circle" src="../assets/icons/whatsapp-float-circle.svg" alt="" />
+    <img class="whatsapp-icon" src="../assets/icons/whatsapp-float-icon.png" alt="" />
+  </a>
+
+  <script src="../js/shared/header.js"></script>
+  <script src="../js/pages/index.js"></script>
+</body>
+</html>

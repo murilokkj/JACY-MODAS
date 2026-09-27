@@ -1,0 +1,215 @@
+<!--
+  Tela "Gerenciar minha conta".
+  Figma: node 171:187 "👤 Gerenciamento do Usuário" — 3 estados: visualização
+  (163:3), edição dos dados pessoais (169:59) e edição do endereço (169:191).
+  Implementados aqui como UMA página só, com os dois cartões da esquerda
+  alternando entre "ver" e "editar" ao clicar no lápis (js/pages/minha-conta.js),
+  em vez de 3 páginas separadas — o conteúdo é o mesmo, só muda o modo.
+  Versão para celulares: node 289:3393 (mesmo HTML, ajustado via CSS).
+  Acessível pelo link "Gerenciar minha conta" no menu do usuário logado.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minha Conta — Jacy Modas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Header padrão (igual em todas as páginas): menu de categorias, busca,
+       logo, usuário e carrinho. A barra de busca é criada por js/shared/header.js. -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="btns-left">
+        <a href="#" class="icon-btn" aria-label="Menu" id="btn-menu">
+          <img src="../assets/icons/menu.svg" alt="" />
+        </a>
+        <a href="pesquisa.html" class="icon-btn" aria-label="Buscar" id="btn-search">
+          <img src="../assets/icons/search.svg" alt="" />
+        </a>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <a href="#" class="icon-btn" aria-label="Minha conta" id="btn-user">
+          <img src="../assets/icons/user.svg" alt="" />
+        </a>
+        <a href="#" class="icon-btn" aria-label="Carrinho" id="btn-cart">
+          <img src="../assets/icons/cart.svg" alt="" />
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fundo escuro + painéis do header (categorias, login/usuário e carrinho).
+       Usuário e carrinho são preenchidos por js/shared/header.js ao abrir. -->
+  <div class="dropdown-backdrop" id="dropdown-backdrop" hidden></div>
+
+  <div class="dropdown-panel" id="panel-menu" hidden>
+    <div class="dp-title">CATEGORIAS</div>
+    <nav class="menu-categorias">
+      <a href="pesquisa.html?categoria=camisas">Camisas</a>
+      <a href="pesquisa.html?categoria=blusinhas">Blusinhas</a>
+      <a href="pesquisa.html?categoria=blusas">Blusas</a>
+      <a href="pesquisa.html?categoria=vestidos">Vestidos</a>
+      <a href="pesquisa.html?categoria=croppeds">Croppeds</a>
+      <a href="pesquisa.html?categoria=calcas">Calças</a>
+      <a href="pesquisa.html?categoria=bermudas">Bermudas</a>
+      <a href="pesquisa.html?categoria=conjuntos">Conjuntos</a>
+      <a href="pesquisa.html?categoria=corsets">Corsets</a>
+      <a href="pesquisa.html?categoria=biquinis">Biquinis</a>
+      <a href="pesquisa.html?categoria=bodys">Bodys</a>
+      <a href="pesquisa.html?categoria=saias">Saias</a>
+    </nav>
+  </div>
+
+  <div class="dropdown-panel" id="panel-user" hidden></div>
+
+  <div class="dropdown-panel" id="panel-cart" hidden></div>
+
+  <!-- ============================ Conteúdo da página ============================ -->
+  <main class="tela-inicial">
+    <div class="pedidos-main">
+      <div class="conta-grid">
+        <!-- Cartão da esquerda: dados pessoais + endereço -->
+        <div class="conta-perfil-card">
+          <div class="conta-secao" id="secao-pessoais">
+            <div class="conta-secao-header">
+              <img src="../assets/icons/user-solid.svg" alt="" />
+              <!-- No celular, em modo de edição o título vira "Editar dados pessoais" (Figma 289:2243) -->
+              <h2><span class="titulo-ver">Dados pessoais</span><span class="titulo-editar">Editar dados pessoais</span></h2>
+              <button type="button" class="btn-editar" data-alvo="pessoais" aria-label="Editar dados pessoais">
+                <img src="../assets/icons/pen-solid.svg" alt="" />
+              </button>
+            </div>
+            <!-- Preenchido por js/pages/minha-conta.js (renderView/renderEdit) -->
+            <div class="conta-campos" id="campos-pessoais"></div>
+          </div>
+
+          <hr class="conta-divisor" />
+
+          <div class="conta-secao" id="secao-endereco">
+            <div class="conta-secao-header">
+              <img src="../assets/icons/house-user-solid.svg" alt="" />
+              <h2>Endereço</h2>
+              <!-- O endereço não é mais editado aqui: o lápis leva para a tela
+                   "Meus endereços" (enderecos.html, Figma 396:3872) -->
+              <a class="btn-editar" href="enderecos.html" aria-label="Gerenciar endereços">
+                <img src="../assets/icons/pen-solid.svg" alt="" />
+              </a>
+            </div>
+            <div class="conta-campos" id="campos-endereco"></div>
+          </div>
+        </div>
+
+        <!-- Coluna da direita: atalhos para pedidos, favoritos, endereços e segurança -->
+        <div class="conta-links-coluna">
+          <a class="conta-link-card" href="pedidos.html">
+            <img class="icone" src="../assets/icons/clipboard-list-solid.svg" alt="" />
+            <span class="divisor-vertical"></span>
+            <div class="textos">
+              <h3>Meus pedidos</h3>
+              <p>Acompanhe o status dos seus pedidos e veja os detalhes de entrega.</p>
+            </div>
+            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
+          </a>
+
+          <a class="conta-link-card" href="favoritos.html">
+            <img class="icone" src="../assets/icons/heart-solid.svg" alt="" />
+            <span class="divisor-vertical"></span>
+            <div class="textos">
+              <h3>Meus favoritos</h3>
+              <p>Veja os produtos que você salvou e adicione ao carrinho.</p>
+            </div>
+            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
+          </a>
+
+          <!-- Figma: node 396:3849 "card-link-enderecos" (mobile: 402:3893) -->
+          <a class="conta-link-card" href="enderecos.html">
+            <img class="icone" src="../assets/icons/house-user-solid-80.svg" alt="" />
+            <span class="divisor-vertical"></span>
+            <div class="textos">
+              <h3>Meus endereços</h3>
+              <p>Gerencie seus endereços de entrega salvos na sua conta.</p>
+            </div>
+            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
+          </a>
+
+          <a class="conta-link-card" href="seguranca-privacidade.html">
+            <img class="icone" src="../assets/icons/shield-halved-solid.svg" alt="" />
+            <span class="divisor-vertical"></span>
+            <div class="textos">
+              <h3>Segurança e privacidade</h3>
+              <p>Altere sua senha, email e gerencie as configurações de segurança da conta.</p>
+            </div>
+            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer padrão (igual em todas as páginas): contato, dúvidas frequentes
+       e formas de pagamento. -->
+  <footer class="site-footer">
+    <div class="footer-principal">
+      <div class="footer-logo">
+        <img src="../assets/images/logo.png" alt="Jaacy Modas" />
+      </div>
+
+      <div class="footer-conteudo">
+        <div class="footer-contatos">
+          <h3>CONTATO</h3>
+          <p class="contato-linha">
+            <img src="../assets/icons/whatsapp.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/phone.svg" alt="" />
+            <span>(11) 95797-1513</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/instagram.svg" alt="" />
+            <span>jaacymodas</span>
+          </p>
+          <p class="contato-linha">
+            <img src="../assets/icons/location.svg" alt="" />
+            <span>Rua Martino Arosio, 38<br />Vila Aurora, São Paulo - SP, 05186-150</span>
+          </p>
+        </div>
+
+        <div class="footer-duvidas">
+          <h3>DÚVIDAS FREQUENTES</h3>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Prazos e entregas</a>
+          <a href="#">Pagamentos</a>
+          <a href="politica-privacidade.html">Política de privacidade</a>
+          <a href="termos-cookies.html">Termos de uso e política de cookies</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-pagamento">
+      <h3>FORMAS DE PAGAMENTO</h3>
+      <div class="pagamento-icones">
+        <img src="../assets/images/pagamento-mastercard.png" alt="Mastercard" />
+        <img src="../assets/images/pagamento-maestro.png" alt="Maestro" />
+        <img src="../assets/images/pagamento-elo.png" alt="Elo" />
+        <img src="../assets/images/pagamento-visa.png" alt="Visa" />
+        <img src="../assets/images/pagamento-pix.png" alt="Pix" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- header.js: dropdowns do header | minha-conta.js: alternar ver/editar -->
+  <script src="../js/shared/header.js"></script>
+  <script src="../js/shared/enderecos-dados.js"></script>
+  <script src="../js/pages/minha-conta.js"></script>
+</body>
+</html>
