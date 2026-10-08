@@ -26,7 +26,7 @@
     blusa: {
       nome: 'Blusa tricô modal',
       categoria: 'Blusas',
-      preco: 44.99,
+      preco: 34.99,
       tag: 'Últimas unidades!',
       imagens: [
         '../assets/images/produto-blusa-trico.png',

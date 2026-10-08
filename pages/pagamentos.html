@@ -1,19 +1,15 @@
 <!--
-  Tela "Gerenciar minha conta".
-  Figma: node 171:187 "👤 Gerenciamento do Usuário" — 3 estados: visualização
-  (163:3), edição dos dados pessoais (169:59) e edição do endereço (169:191).
-  Implementados aqui como UMA página só, com os dois cartões da esquerda
-  alternando entre "ver" e "editar" ao clicar no lápis (js/pages/minha-conta.js),
-  em vez de 3 páginas separadas — o conteúdo é o mesmo, só muda o modo.
-  Versão para celulares: node 289:3393 (mesmo HTML, ajustado via CSS).
-  Acessível pelo link "Gerenciar minha conta" no menu do usuário logado.
+  Formas e política de pagamento (texto estático).
+  Baseado nas regras de negócio (seção 3 — Pagamento) e nos requisitos
+  RF-010 (Checkout), RF-014 (Pagamento Integrado) e RF-015 (Confirmação do
+  Pedido) do documento "Regras de negócios e requisitos".
 -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minha Conta — Jacy Modas</title>
+  <title>Formas e Política de Pagamento — Jacy Modas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
@@ -75,83 +71,69 @@
 
   <!-- ============================ Conteúdo da página ============================ -->
   <main class="tela-inicial">
-    <div class="pedidos-main">
-      <div class="conta-grid">
-        <!-- Cartão da esquerda: dados pessoais + endereço -->
-        <div class="conta-perfil-card">
-          <div class="conta-secao" id="secao-pessoais">
-            <div class="conta-secao-header">
-              <img src="../assets/icons/user-solid.svg" alt="" />
-              <!-- No celular, em modo de edição o título vira "Editar dados pessoais" (Figma 289:2243) -->
-              <h2><span class="titulo-ver">Dados pessoais</span><span class="titulo-editar">Editar dados pessoais</span></h2>
-              <button type="button" class="btn-editar" data-alvo="pessoais" aria-label="Editar dados pessoais">
-                <img src="../assets/icons/pen-solid.svg" alt="" />
-              </button>
-            </div>
-            <!-- Preenchido por js/pages/minha-conta.js (renderView/renderEdit) -->
-            <div class="conta-campos" id="campos-pessoais"></div>
-          </div>
-
-          <hr class="conta-divisor" />
-
-          <div class="conta-secao" id="secao-endereco">
-            <div class="conta-secao-header">
-              <img src="../assets/icons/house-user-solid.svg" alt="" />
-              <h2>Endereço</h2>
-              <!-- O endereço não é mais editado aqui: o lápis leva para a tela
-                   "Meus endereços" (enderecos.html, Figma 396:3872) -->
-              <a class="btn-editar" href="enderecos.html" aria-label="Gerenciar endereços">
-                <img src="../assets/icons/pen-solid.svg" alt="" />
-              </a>
-            </div>
-            <div class="conta-campos" id="campos-endereco"></div>
-          </div>
-        </div>
-
-        <!-- Coluna da direita: atalhos para pedidos, favoritos, endereços e segurança -->
-        <div class="conta-links-coluna">
-          <a class="conta-link-card" href="pedidos.html">
-            <img class="icone" src="../assets/icons/clipboard-list-solid.svg" alt="" />
-            <span class="divisor-vertical"></span>
-            <div class="textos">
-              <h3>Meus pedidos</h3>
-              <p>Acompanhe o status dos seus pedidos e veja os detalhes de entrega.</p>
-            </div>
-            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
-          </a>
-
-          <a class="conta-link-card" href="favoritos.html">
-            <img class="icone" src="../assets/icons/heart-solid.svg" alt="" />
-            <span class="divisor-vertical"></span>
-            <div class="textos">
-              <h3>Meus favoritos</h3>
-              <p>Veja os produtos que você salvou e adicione ao carrinho.</p>
-            </div>
-            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
-          </a>
-
-          <!-- Figma: node 396:3849 "card-link-enderecos" (mobile: 402:3893) -->
-          <a class="conta-link-card" href="enderecos.html">
-            <img class="icone" src="../assets/icons/house-user-solid-80.svg" alt="" />
-            <span class="divisor-vertical"></span>
-            <div class="textos">
-              <h3>Meus endereços</h3>
-              <p>Gerencie seus endereços de entrega salvos na sua conta.</p>
-            </div>
-            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
-          </a>
-
-          <a class="conta-link-card" href="seguranca-privacidade.html">
-            <img class="icone" src="../assets/icons/shield-halved-solid.svg" alt="" />
-            <span class="divisor-vertical"></span>
-            <div class="textos">
-              <h3>Segurança e privacidade</h3>
-              <p>Altere sua senha, email e gerencie as configurações de segurança da conta.</p>
-            </div>
-            <img class="seta" src="../assets/icons/arrow-right.svg" alt="" />
-          </a>
-        </div>
+    <div class="politica-main">
+      <div class="politica-title-block">
+        <h1>FORMAS E POLÍTICA DE PAGAMENTO</h1>
+        <p class="politica-atualizacao">Última atualização: outubro de 2026</p>
       </div>
+
+      <section class="legal-section">
+        <h2>1. Formas de Pagamento Aceitas</h2>
+        <div class="legal-section-body">
+          <p>Na Jacy Modas, todo o pagamento é feito diretamente pelo nosso site, de forma integrada e segura, sem que você precise sair da loja virtual. Você pode escolher entre:</p>
+          <ul class="bullet-list">
+            <li>PIX: pagamento instantâneo, por QR Code ou pelo código "copia e cola".</li>
+            <li>Cartão de Crédito: bandeiras Mastercard, Visa e Elo.</li>
+            <li>Cartão de Débito: bandeiras Maestro, Visa e Elo.</li>
+            <li>Carteiras Digitais: pagamento pelas carteiras digitais disponíveis na finalização da compra.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. Dados Necessários para Finalizar a Compra</h2>
+        <div class="legal-section-body">
+          <p>Você pode comprar com ou sem cadastro no site. Em ambos os casos, para concluir o pedido é necessário informar:</p>
+          <ul class="bullet-list">
+            <li>Nome completo.</li>
+            <li>CPF, em formato válido — sem um CPF válido não é possível prosseguir com a compra.</li>
+            <li>E-mail e telefone para contato.</li>
+            <li>Endereço de entrega completo (CEP, rua, número, complemento, bairro, cidade e estado).</li>
+          </ul>
+          <p>Antes da conclusão, você poderá revisar e confirmar o endereço de entrega informado.</p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Confirmação do Pagamento</h2>
+        <div class="legal-section-body">
+          <p>O pedido é registrado assim que a compra é finalizada, mas só é considerado pago após a confirmação da plataforma de pagamento. Até lá, ele aparece com o status de pagamento "Pendente".</p>
+          <p>Quando o pagamento for aprovado, você será informado da confirmação do pedido e o status passará para "Pago". Você pode acompanhar essas informações a qualquer momento em <a href="pedidos.html">Meus pedidos</a>.</p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Prazo para Pagamento via PIX</h2>
+        <div class="legal-section-body">
+          <p>Pedidos pagos via PIX devem ter o pagamento confirmado em até 24 horas após a finalização da compra. Caso o pagamento não seja confirmado nesse prazo, o pedido será cancelado automaticamente e os produtos voltarão a ficar disponíveis no estoque da loja.</p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Disponibilidade dos Produtos</h2>
+        <div class="legal-section-body">
+          <p>Os produtos só podem ser adicionados ao carrinho e comprados enquanto houver estoque disponível, e não é possível comprar quantidades acima do estoque. O estoque é atualizado automaticamente após a confirmação do pagamento — por isso, recomendamos concluir o pagamento logo após finalizar o pedido para garantir as suas peças.</p>
+          <p>Produtos sem estoque aparecem no site identificados como "Indisponível".</p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>6. Segurança</h2>
+        <div class="legal-section-body">
+          <p>Nosso site utiliza certificado de segurança SSL, que protege a transmissão dos seus dados durante a navegação e o pagamento. Os dados de pagamento são processados pela plataforma de pagamento integrada ao site.</p>
+          <p>Saiba mais sobre como tratamos as suas informações na nossa <a href="politica-privacidade.html">Política de Privacidade</a>.</p>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -207,9 +189,11 @@
     </div>
   </footer>
 
-  <!-- header.js: dropdowns do header | minha-conta.js: alternar ver/editar -->
+  <a class="whatsapp-float" href="https://wa.me/5511957971513" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <img class="whatsapp-circle" src="../assets/icons/whatsapp-float-circle.svg" alt="" />
+    <img class="whatsapp-icon" src="../assets/icons/whatsapp-float-icon.png" alt="" />
+  </a>
+
   <script src="../js/shared/header.js"></script>
-  <script src="../js/shared/enderecos-dados.js"></script>
-  <script src="../js/pages/minha-conta.js"></script>
 </body>
 </html>

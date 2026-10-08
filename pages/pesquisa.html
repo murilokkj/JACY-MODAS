@@ -114,35 +114,38 @@
         <div class="filtro-grupo">
           <h3>Tamanho</h3>
           <div class="filtro-lista">
-            <label class="filtro-item"><input type="checkbox" />PP</label>
-            <label class="filtro-item"><input type="checkbox" />P (36 a 38)</label>
-            <label class="filtro-item"><input type="checkbox" />M (40 a 42)</label>
-            <label class="filtro-item"><input type="checkbox" />G (44 a 46)</label>
-            <label class="filtro-item"><input type="checkbox" />GG</label>
+            <label class="filtro-item"><input type="checkbox" name="tamanho" value="PP" />PP</label>
+            <label class="filtro-item"><input type="checkbox" name="tamanho" value="P" />P (36 a 38)</label>
+            <label class="filtro-item"><input type="checkbox" name="tamanho" value="M" />M (40 a 42)</label>
+            <label class="filtro-item"><input type="checkbox" name="tamanho" value="G" />G (44 a 46)</label>
+            <label class="filtro-item"><input type="checkbox" name="tamanho" value="GG" />GG</label>
           </div>
         </div>
         <div class="filtro-grupo">
           <h3>Cor</h3>
           <div class="filtro-lista">
-            <label class="filtro-item"><input type="checkbox" />Preto <img src="../assets/icons/cor-preto.svg" alt="" /></label>
-            <label class="filtro-item"><input type="checkbox" />Branco <img src="../assets/icons/cor-branco.svg" alt="" /></label>
-            <label class="filtro-item"><input type="checkbox" />Azul <img src="../assets/icons/cor-azul.svg" alt="" /></label>
-            <label class="filtro-item"><input type="checkbox" />Amarelo <img src="../assets/icons/cor-amarelo.svg" alt="" /></label>
-            <label class="filtro-item"><input type="checkbox" />Verde <img src="../assets/icons/cor-verde.svg" alt="" /></label>
-            <label class="filtro-item"><input type="checkbox" />Rosa <img src="../assets/icons/cor-rosa.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" name="cor" value="Preto" />Preto <img src="../assets/icons/cor-preto.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" name="cor" value="Branco" />Branco <img src="../assets/icons/cor-branco.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" name="cor" value="Azul" />Azul <img src="../assets/icons/cor-azul.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" name="cor" value="Amarelo" />Amarelo <img src="../assets/icons/cor-amarelo.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" name="cor" value="Verde" />Verde <img src="../assets/icons/cor-verde.svg" alt="" /></label>
+            <label class="filtro-item"><input type="checkbox" name="cor" value="Rosa" />Rosa <img src="../assets/icons/cor-rosa.svg" alt="" /></label>
           </div>
         </div>
         <div class="filtro-grupo">
           <h3>Preço</h3>
           <div class="filtro-preco-campo">
-            <label>Preço mínimo:</label>
-            <input type="text" placeholder="Mín." />
+            <label for="filtro-preco-min">Preço mínimo:</label>
+            <input type="text" id="filtro-preco-min" inputmode="decimal" placeholder="Mín." />
           </div>
           <div class="filtro-preco-campo">
-            <label>Preço máximo:</label>
-            <input type="text" placeholder="Máx." />
+            <label for="filtro-preco-max">Preço máximo:</label>
+            <input type="text" id="filtro-preco-max" inputmode="decimal" placeholder="Máx." />
           </div>
         </div>
+
+        <!-- Os filtros só são aplicados ao clicar aqui (js/pages/pesquisa.js) -->
+        <button type="button" class="filtro-salvar" id="btn-salvar-filtros">Salvar filtros</button>
       </aside>
 
       <!-- Cards dos resultados, desenhados por js/pages/pesquisa.js -->
@@ -181,9 +184,9 @@
 
         <div class="footer-duvidas">
           <h3>DÚVIDAS FREQUENTES</h3>
-          <a href="#">Trocas e devoluções</a>
-          <a href="#">Prazos e entregas</a>
-          <a href="#">Pagamentos</a>
+          <a href="trocas-devolucoes.html">Trocas e devoluções</a>
+          <a href="prazos-entregas.html">Prazos e entregas</a>
+          <a href="pagamentos.html">Pagamentos</a>
           <a href="politica-privacidade.html">Política de privacidade</a>
           <a href="termos-cookies.html">Termos de uso e política de cookies</a>
         </div>

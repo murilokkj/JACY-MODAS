@@ -18,6 +18,8 @@
 (function () {
   // Produtos de exemplo exibidos nos resultados. "slug" é o identificador
   // usado em produto.html?produto=...; produtos indisponíveis não têm página.
+  // "tamanhos" e "cores" são usados pelos filtros da lateral (valores iguais
+  // aos "value" dos checkboxes em pesquisa.html).
   var PRODUTOS = [
     {
       slug: 'cropped',
@@ -25,6 +27,8 @@
       preco: 44.99,
       parcelas: '10x de R$4,99',
       imagem: '../assets/images/produto-cropped.png',
+      tamanhos: ['PP', 'P', 'M', 'G'],
+      cores: ['Preto'],
       disponivel: true
     },
     {
@@ -33,6 +37,8 @@
       preco: 99.9,
       parcelas: '10x de R$9,90',
       imagem: '../assets/images/produto-calca-indisponivel.png',
+      tamanhos: ['P', 'M', 'G', 'GG'],
+      cores: ['Preto'],
       disponivel: false
     },
     {
@@ -41,15 +47,19 @@
       preco: 44.99,
       parcelas: '10x de R$4,99',
       imagem: '../assets/images/categoria-conjuntos.png',
+      tamanhos: ['P', 'M', 'G'],
+      cores: ['Azul'],
       disponivel: true
     },
     {
       slug: 'blusa',
       nome: 'Blusa tricô modal',
-      preco: 44.99,
-      parcelas: '10x de R$4,99',
+      preco: 34.99,
+      parcelas: '10x de R$3,50',
       imagem: '../assets/images/produto-blusa-trico.png',
       tag: 'Últimas unidades!',
+      tamanhos: ['P', 'M', 'G', 'GG'],
+      cores: ['Rosa', 'Branco'],
       disponivel: true
     }
   ];
@@ -127,22 +137,76 @@
     return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
 
-  // Desenha a grade de resultados: filtra pelo termo buscado (se houver),
-  // ordena e monta os cards. Sem termo, a lista de exemplo é repetida 3x
-  // só para preencher a página como no design.
-  function renderProdutos(ordem) {
+  // Ordem escolhida em "Ordenar produtos por:" e filtros salvos pelo botão
+  // "Salvar filtros". Os checkboxes e campos de preço só passam a valer
+  // depois do clique no botão — mexer neles sozinho não muda os resultados.
+  var ordemAtual = 'relevancia';
+  var filtros = { tamanhos: [], cores: [], precoMin: null, precoMax: null };
+
+  // true se algum filtro foi salvo
+  function temFiltros() {
+    return filtros.tamanhos.length > 0 || filtros.cores.length > 0 ||
+      filtros.precoMin !== null || filtros.precoMax !== null;
+  }
+
+  // Converte o texto do campo de preço em número ("49,90" ou "R$ 49.90" ->
+  // 49.9). Campo vazio ou inválido = sem limite (null).
+  function lerPreco(texto) {
+    var limpo = texto.replace(/[^\d,.]/g, '').replace(',', '.');
+    var valor = parseFloat(limpo);
+    return isNaN(valor) ? null : valor;
+  }
+
+  // Lê os checkboxes marcados e os campos de preço da lateral
+  function lerFiltrosDaTela() {
+    var marcados = function (nome) {
+      return Array.prototype.map.call(
+        document.querySelectorAll('#filtro-sidebar input[name="' + nome + '"]:checked'),
+        function (input) { return input.value; }
+      );
+    };
+    return {
+      tamanhos: marcados('tamanho'),
+      cores: marcados('cor'),
+      precoMin: lerPreco(document.getElementById('filtro-preco-min').value),
+      precoMax: lerPreco(document.getElementById('filtro-preco-max').value)
+    };
+  }
+
+  // Um produto passa se tiver ao menos um dos tamanhos marcados, ao menos uma
+  // das cores marcadas e o preço dentro da faixa (grupos vazios não filtram).
+  function passaNosFiltros(p) {
+    var temAlgum = function (doProduto, marcados) {
+      return marcados.length === 0 || marcados.some(function (v) { return doProduto.indexOf(v) !== -1; });
+    };
+    return temAlgum(p.tamanhos, filtros.tamanhos) &&
+      temAlgum(p.cores, filtros.cores) &&
+      (filtros.precoMin === null || p.preco >= filtros.precoMin) &&
+      (filtros.precoMax === null || p.preco <= filtros.precoMax);
+  }
+
+  // Desenha a grade de resultados: filtra pelo termo buscado (se houver) e
+  // pelos filtros salvos, ordena e monta os cards. Sem termo nem filtros, a
+  // lista de exemplo é repetida 3x só para preencher a página como no design.
+  function renderProdutos() {
     var container = document.getElementById('pesquisa-produtos');
-    var base = TERMO
-      ? PRODUTOS.filter(function (p) { return normalizar(p.nome).indexOf(normalizar(TERMO)) !== -1; })
-      : PRODUTOS;
+    var base = PRODUTOS.filter(function (p) {
+      var passaNoTermo = !TERMO || normalizar(p.nome).indexOf(normalizar(TERMO)) !== -1;
+      return passaNoTermo && passaNosFiltros(p);
+    });
     if (base.length === 0) {
-      container.innerHTML = '<p class="pesquisa-vazia">Nenhum produto encontrado para "' +
-        TERMO.replace(/</g, '&lt;') + '".</p>';
+      container.innerHTML = '<p class="pesquisa-vazia">' + (TERMO
+        ? 'Nenhum produto encontrado para "' + TERMO.replace(/</g, '&lt;') + '"' + (temFiltros() ? ' com os filtros selecionados.' : '.')
+        : 'Nenhum produto encontrado com os filtros selecionados.') + '</p>';
       return;
     }
-    var lista = ordenar(base, ordem);
-    var repetido = TERMO ? lista : lista.concat(lista, lista);
-    container.innerHTML = repetido.map(cardHtml).join('');
+    // A repetição acontece ANTES de ordenar: assim a ordenação vale para a
+    // grade inteira (ex.: em "Menor preço" todos os itens de R$44,99 vêm
+    // primeiro e os mais caros só no fim), em vez de repetir uma sequência
+    // já ordenada três vezes.
+    var repetido = TERMO || temFiltros() ? base : base.concat(base, base);
+    var lista = ordenar(repetido, ordemAtual);
+    container.innerHTML = lista.map(cardHtml).join('');
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -158,7 +222,7 @@
         ? linkCategoria.textContent.trim()
         : categoria.charAt(0).toUpperCase() + categoria.slice(1);
     }
-    renderProdutos('relevancia');
+    renderProdutos();
 
     // "Ordenar produtos por:": o campo abre/fecha a lista de opções; escolher
     // uma opção atualiza o texto do campo e redesenha os resultados.
@@ -176,7 +240,8 @@
         var ordem = btn.getAttribute('data-ordem');
         selecionadoLabel.textContent = ORDEM_LABELS[ordem];
         lista.hidden = true;
-        renderProdutos(ordem);
+        ordemAtual = ordem;
+        renderProdutos();
       });
     });
 
@@ -194,6 +259,14 @@
       sidebar.classList.toggle('aberta', abrir);
       fundo.hidden = !abrir;
     };
+    // "Salvar filtros": aplica o que está marcado na lateral e, no celular,
+    // fecha a folha de filtros para mostrar os resultados.
+    document.getElementById('btn-salvar-filtros').addEventListener('click', function () {
+      filtros = lerFiltrosDaTela();
+      renderProdutos();
+      alternarFiltros(false);
+    });
+
     abrirFiltros.addEventListener('click', function (e) {
       e.stopPropagation();
       alternarFiltros(true);

@@ -13,6 +13,8 @@
         componentes compartilhados e depois página por página
      6. Barra de busca do header
      7. Notificações no canto inferior direito (no lugar do alert())
+     8. Botão "Salvar filtros" da pesquisa
+     9. Extras das páginas de Pagamentos, Prazos e entregas e Trocas e devoluções
 
    Os designs mobile do Figma usam um quadro de 700px de largura; os valores
    dentro de "@media (max-width: 768px)" seguem o Figma à risca, e os de
@@ -525,10 +527,15 @@ h2 {
   max-width: calc(100vw - 32px);
 }
 
+/* Painel de categorias: largura proporcional aos nomes (antes 550px, que
+   deixava muito espaço vazio à direita dos textos). No celular ele vira
+   gaveta lateral, com a largura definida nas regras de ≤768px. */
 #panel-menu {
   left: 24px;
   align-items: flex-start;
-  width: 550px;
+  width: 300px;
+  padding: 28px 32px;
+  gap: 16px;
 }
 
 #panel-user,
@@ -5513,5 +5520,98 @@ a.dp-btn {
 
   .notificacoes.acima-whatsapp {
     bottom: 96px;
+  }
+}
+
+/* ============================================================
+   Pesquisa: botão "Salvar filtros" no fim da lateral de filtros
+   (no celular fica no fim da folha de filtros). Padrão do site:
+   fundo rosa e texto branco.
+   ============================================================ */
+.filtro-salvar {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--rosa);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.filtro-salvar:hover {
+  filter: brightness(0.94);
+}
+
+@media (max-width: 768px) {
+  .filtro-salvar {
+    flex-shrink: 0;
+    padding: 16px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filtro-salvar {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+/* ============================================================
+   Páginas informativas: Pagamentos, Prazos e entregas e Trocas e
+   devoluções (pagamentos.html, prazos-entregas.html,
+   trocas-devolucoes.html). Usam o mesmo layout das políticas
+   (.politica-main / .legal-section); aqui ficam só os extras.
+   ============================================================ */
+
+/* Links no meio dos textos (ex.: "Meus pedidos", "Política de Privacidade") */
+.legal-section-body a {
+  color: var(--rosa);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Botão "Solicitar troca ou devolução pelo WhatsApp": padrão do site,
+   rosa com texto branco */
+.legal-section-body a.politica-cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  background: var(--rosa);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-section-body a.politica-cta:hover {
+  filter: brightness(0.94);
+}
+
+.politica-cta img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .legal-section-body a.politica-cta {
+    align-self: stretch;
+    justify-content: center;
+    padding: 16px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-section-body a.politica-cta {
+    font-size: 15px;
   }
 }
