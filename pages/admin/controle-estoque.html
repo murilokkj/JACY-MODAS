@@ -1,0 +1,102 @@
+<!--
+  Tela "Controle de estoque" (área administrativa).
+  Figma: node 429:7346. Os números e a tabela são calculados em
+  js/pages/admin-estoque.js a partir dos produtos cadastrados.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controle de estoque — Jacy Modas (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body class="admin" data-admin-pagina="estoque">
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="painel.html" class="logo-link">
+        <img src="../../assets/images/logo.png" alt="Jaacy Modas — painel administrativo" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <span class="icon-btn" role="img" aria-label="Administrador">
+          <img src="../../assets/icons/user.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-area">
+    <nav class="admin-nav" id="admin-nav" aria-label="Navegação administrativa"></nav>
+
+    <main class="admin-conteudo">
+      <div class="admin-titulo">
+        <img src="../../assets/icons/admin/titulo-estoque.svg" alt="" />
+        <h1>Controle de estoque</h1>
+      </div>
+
+      <div class="admin-indicadores">
+        <div class="admin-indicador">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-produtos.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Produtos cadastrados</span>
+            <span class="admin-indicador-valor" id="ind-cadastrados">0</span>
+          </span>
+        </div>
+        <div class="admin-indicador">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-estoque-total.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Estoque total</span>
+            <span class="admin-indicador-valor" id="ind-total">0</span>
+          </span>
+        </div>
+        <button type="button" class="admin-indicador" data-filtro="baixo" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-estoque-baixo.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Estoque baixo</span>
+            <span class="admin-indicador-valor" id="ind-baixo">0</span>
+          </span>
+        </button>
+        <button type="button" class="admin-indicador" data-filtro="indisponivel" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-indisponiveis.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Indisponíveis</span>
+            <span class="admin-indicador-valor" id="ind-indisponiveis">0</span>
+          </span>
+        </button>
+      </div>
+
+      <form class="admin-busca" id="estoque-busca-form" role="search">
+        <label class="admin-busca-campo">
+          <img src="../../assets/icons/admin/busca.svg" alt="" />
+          <input type="search" id="estoque-busca" placeholder="Buscar produto..." aria-label="Buscar produto" autocomplete="off" />
+        </label>
+        <button type="submit" class="admin-btn">Buscar</button>
+      </form>
+
+      <div class="admin-tabela-card">
+        <div class="admin-tabela-rolagem">
+          <table class="admin-tabela">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th class="c-variacao">Variação</th>
+                <th class="c-estoque-un">Estoque</th>
+                <th class="c-situacao">Status</th>
+                <th class="c-atualizacao">Última atualização</th>
+              </tr>
+            </thead>
+            <tbody id="estoque-corpo"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/shared/admin-dados.js"></script>
+  <script src="../../js/shared/admin.js"></script>
+  <script src="../../js/pages/admin-estoque.js"></script>
+</body>
+</html>

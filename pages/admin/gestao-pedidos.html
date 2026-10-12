@@ -1,0 +1,105 @@
+<!--
+  Tela "Gestão de pedidos" (área administrativa).
+  Figma: node 429:7497 (a tabela do Figma está vazia; aqui ela mostra os
+  pedidos de exemplo de js/shared/admin-dados.js e volta ao estado vazio do
+  Figma quando o filtro não encontra nenhum).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de pedidos — Jacy Modas (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body class="admin" data-admin-pagina="pedidos">
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="painel.html" class="logo-link">
+        <img src="../../assets/images/logo.png" alt="Jaacy Modas — painel administrativo" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <span class="icon-btn" role="img" aria-label="Administrador">
+          <img src="../../assets/icons/user.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-area">
+    <nav class="admin-nav" id="admin-nav" aria-label="Navegação administrativa"></nav>
+
+    <main class="admin-conteudo">
+      <div class="admin-titulo">
+        <img src="../../assets/icons/admin/titulo-pedidos.svg" alt="" />
+        <h1>Gestão de pedidos</h1>
+      </div>
+
+      <!-- Cada indicador filtra a tabela pela etapa correspondente -->
+      <div class="admin-indicadores">
+        <button type="button" class="admin-indicador" data-filtro="pendente" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-pendentes.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Pendentes</span>
+            <span class="admin-indicador-valor" id="ind-pendente">0</span>
+          </span>
+        </button>
+        <button type="button" class="admin-indicador" data-filtro="preparacao" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-preparacao.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Em preparação</span>
+            <span class="admin-indicador-valor" id="ind-preparacao">0</span>
+          </span>
+        </button>
+        <button type="button" class="admin-indicador" data-filtro="enviado" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-enviados.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Enviados</span>
+            <span class="admin-indicador-valor" id="ind-enviado">0</span>
+          </span>
+        </button>
+        <button type="button" class="admin-indicador" data-filtro="retirada" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-retirada.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Prontos para retiradas</span>
+            <span class="admin-indicador-valor" id="ind-retirada">0</span>
+          </span>
+        </button>
+        <button type="button" class="admin-indicador" data-filtro="entregue" aria-pressed="false">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-entregues.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Entregues</span>
+            <span class="admin-indicador-valor" id="ind-entregue">0</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="admin-tabela-card admin-tabela-card--alta">
+        <div class="admin-tabela-rolagem">
+          <table class="admin-tabela">
+            <thead>
+              <tr>
+                <th class="c-pedido">Pedido</th>
+                <th class="c-cliente">Cliente</th>
+                <th class="c-data">Data</th>
+                <th class="c-pagamento">Pagamento</th>
+                <th class="c-pedido-status">Status</th>
+                <th class="c-valor col-direita">Valor</th>
+                <th class="c-pedido-acao col-centro">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="pedidos-corpo"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/shared/admin-dados.js"></script>
+  <script src="../../js/shared/admin.js"></script>
+  <script src="../../js/pages/admin-pedidos.js"></script>
+</body>
+</html>

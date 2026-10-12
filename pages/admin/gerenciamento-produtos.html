@@ -1,0 +1,79 @@
+<!--
+  Tela "Gerenciamento de produtos" (área administrativa).
+  Figma: node 429:7090. O menu lateral é montado por js/shared/admin.js e os
+  produtos vêm de js/shared/admin-dados.js (localStorage).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerenciamento de produtos — Jacy Modas (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body class="admin" data-admin-pagina="produtos">
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="painel.html" class="logo-link">
+        <img src="../../assets/images/logo.png" alt="Jaacy Modas — painel administrativo" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <span class="icon-btn" role="img" aria-label="Administrador">
+          <img src="../../assets/icons/user.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-area">
+    <nav class="admin-nav" id="admin-nav" aria-label="Navegação administrativa"></nav>
+
+    <main class="admin-conteudo">
+      <div class="admin-titulo">
+        <img src="../../assets/icons/admin/titulo-produtos.svg" alt="" />
+        <h1>Gerenciamento de produtos</h1>
+      </div>
+
+      <form class="admin-busca" id="produtos-busca-form" role="search">
+        <label class="admin-busca-campo">
+          <img src="../../assets/icons/admin/busca.svg" alt="" />
+          <input type="search" id="produtos-busca" placeholder="Buscar produto..." aria-label="Buscar produto" autocomplete="off" />
+        </label>
+        <button type="submit" class="admin-btn">Buscar</button>
+      </form>
+
+      <div class="admin-selecao" id="produtos-selecao" hidden>
+        <span id="produtos-selecao-texto"></span>
+        <button type="button" class="admin-btn admin-btn--perigo admin-btn--pequeno" id="produtos-excluir-selecionados">Excluir selecionados</button>
+      </div>
+
+      <div class="admin-tabela-card">
+        <div class="admin-tabela-rolagem">
+          <table class="admin-tabela">
+            <thead>
+              <tr>
+                <th class="c-sel"><input type="checkbox" class="admin-check" id="produtos-selecionar-todos" aria-label="Selecionar todos os produtos" /></th>
+                <th>Produto</th>
+                <th class="c-categoria">Categoria</th>
+                <th class="c-preco col-centro">Preço</th>
+                <th class="c-estoque col-centro">Estoque</th>
+                <th class="c-status col-centro">Status</th>
+                <th class="c-acao col-centro">Editar</th>
+                <th class="c-acao col-centro">Excluir</th>
+              </tr>
+            </thead>
+            <tbody id="produtos-corpo"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/shared/admin-dados.js"></script>
+  <script src="../../js/shared/admin.js"></script>
+  <script src="../../js/pages/admin-produtos.js"></script>
+</body>
+</html>

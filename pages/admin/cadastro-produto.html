@@ -1,0 +1,137 @@
+<!--
+  Tela "Cadastro de produtos" (área administrativa).
+  Figma: node 429:7224. Com ?editar=<id> a mesma tela edita um produto
+  existente (js/pages/admin-cadastro.js). A linha "Categoria / Estoque /
+  Status" não existe no Figma, mas a listagem e o estoque dependem desses dados.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de produtos — Jacy Modas (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body class="admin" data-admin-pagina="cadastro">
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="painel.html" class="logo-link">
+        <img src="../../assets/images/logo.png" alt="Jaacy Modas — painel administrativo" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <span class="icon-btn" role="img" aria-label="Administrador">
+          <img src="../../assets/icons/user.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-area">
+    <nav class="admin-nav" id="admin-nav" aria-label="Navegação administrativa"></nav>
+
+    <main class="admin-conteudo">
+      <div class="admin-titulo">
+        <img src="../../assets/icons/admin/titulo-cadastro.svg" alt="" />
+        <h1 id="cadastro-titulo">Cadastro de produtos</h1>
+      </div>
+
+      <form class="admin-cadastro" id="form-produto" novalidate>
+        <div class="admin-cadastro-form">
+          <!-- Imagens: a grande é a principal; os 6 quadrados são adicionais -->
+          <section class="admin-card admin-imagens" aria-label="Imagens do produto">
+            <div class="admin-upload" id="imagem-principal" role="button" tabindex="0" aria-label="Enviar imagem principal"></div>
+            <div class="admin-imagens-extras" id="imagens-extras"></div>
+            <input type="file" id="arquivo-imagem" accept="image/png,image/jpeg" hidden />
+          </section>
+
+          <section class="admin-card" aria-labelledby="titulo-informacoes">
+            <h2 class="admin-card-titulo" id="titulo-informacoes">Informações do produto</h2>
+
+            <div class="admin-form-grade">
+              <div class="admin-campo">
+                <label for="produto-nome">Nome do produto *</label>
+                <input type="text" id="produto-nome" placeholder="Ex.: Vestido longo" autocomplete="off" />
+              </div>
+              <div class="admin-campo">
+                <label for="produto-sku">SKU (código)*</label>
+                <input type="text" id="produto-sku" placeholder="Ex.: VEST-LON.01" autocomplete="off" />
+              </div>
+              <div class="admin-campo">
+                <label for="produto-colecao">Coleção*</label>
+                <input type="text" id="produto-colecao" placeholder="Ex.: Verão" autocomplete="off" />
+              </div>
+              <div class="admin-campo">
+                <label for="produto-tamanho">Tamanho*</label>
+                <input type="text" id="produto-tamanho" placeholder="Ex.: P, M, G" autocomplete="off" />
+              </div>
+
+              <div class="admin-campo admin-campo--cheio">
+                <label for="produto-descricao">Descrição do produto*</label>
+                <textarea id="produto-descricao" placeholder="Descreva seu produto, tecido, modelagem, detalhes..."></textarea>
+              </div>
+            </div>
+
+            <div class="admin-form-grade">
+              <div class="admin-campo">
+                <label for="produto-cor">Cor</label>
+                <div class="admin-campo-cor">
+                  <span class="admin-campo-cor-marca" id="cor-marca"></span>
+                  <select id="produto-cor"></select>
+                </div>
+              </div>
+              <div class="admin-campo">
+                <label for="produto-custo">Preço de custo (R$)</label>
+                <input type="text" id="produto-custo" inputmode="decimal" placeholder="Ex.: 59,99" autocomplete="off" />
+              </div>
+              <div class="admin-campo">
+                <label for="produto-preco">Preço de venda (R$)*</label>
+                <input type="text" id="produto-preco" inputmode="decimal" placeholder="Ex.: 129,99" autocomplete="off" />
+              </div>
+              <div class="admin-campo">
+                <label for="produto-promocional">Preço promocional (R$)</label>
+                <input type="text" id="produto-promocional" inputmode="decimal" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="admin-form-grade">
+              <div class="admin-campo">
+                <label for="produto-categoria">Categoria*</label>
+                <select id="produto-categoria" required></select>
+              </div>
+              <div class="admin-campo">
+                <label for="produto-estoque">Estoque (un.)*</label>
+                <input type="number" id="produto-estoque" min="0" step="1" placeholder="Ex.: 32" />
+              </div>
+              <div class="admin-campo">
+                <label for="produto-status">Status</label>
+                <select id="produto-status">
+                  <option value="ativo" selected>Ativo</option>
+                  <option value="inativo">Inativo</option>
+                </select>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="admin-previa" aria-label="Prévia do produto">
+          <div class="admin-previa-foto" id="previa-foto"></div>
+          <div class="admin-previa-dados">
+            <div class="admin-previa-linha"><span>Nome do produto</span><span id="previa-nome">—</span></div>
+            <div class="admin-previa-linha"><span>Preço</span><span id="previa-preco">—</span></div>
+            <div class="admin-previa-linha"><span>Descrição</span><span id="previa-descricao">—</span></div>
+            <div class="admin-previa-linha"><span>Status</span><span class="admin-badge admin-badge--ok" id="previa-status">ativo</span></div>
+          </div>
+          <button type="submit" class="admin-btn">Salvar</button>
+        </aside>
+      </form>
+    </main>
+  </div>
+
+  <script src="../../js/shared/admin-dados.js"></script>
+  <script src="../../js/shared/admin.js"></script>
+  <script src="../../js/pages/admin-cadastro.js"></script>
+</body>
+</html>

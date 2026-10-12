@@ -1,0 +1,148 @@
+<!--
+  Tela "Painel administrativo" (área administrativa).
+  Não há protótipo no Figma: a tela reaproveita os componentes das outras
+  (indicadores, cartões, tabela e etiquetas) e mostra um resumo da loja a
+  partir dos mesmos dados (js/pages/admin-painel.js).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel administrativo — Jacy Modas (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body class="admin" data-admin-pagina="painel">
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="painel.html" class="logo-link">
+        <img src="../../assets/images/logo.png" alt="Jaacy Modas — painel administrativo" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <span class="icon-btn" role="img" aria-label="Administrador">
+          <img src="../../assets/icons/user.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-area">
+    <nav class="admin-nav" id="admin-nav" aria-label="Navegação administrativa"></nav>
+
+    <main class="admin-conteudo">
+      <div class="admin-titulo">
+        <img src="../../assets/icons/admin/titulo-painel.svg" alt="" />
+        <h1>Painel administrativo</h1>
+      </div>
+
+      <div class="admin-indicadores">
+        <div class="admin-indicador">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-entregues.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Faturamento (7 dias)</span>
+            <span class="admin-indicador-valor" id="kpi-faturamento">R$ 0,00</span>
+          </span>
+        </div>
+        <div class="admin-indicador">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-produtos.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Ticket médio (7 dias)</span>
+            <span class="admin-indicador-valor" id="kpi-ticket">R$ 0,00</span>
+          </span>
+        </div>
+        <div class="admin-indicador">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-pendentes.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Pedidos pendentes</span>
+            <span class="admin-indicador-valor" id="kpi-pendentes">0</span>
+          </span>
+        </div>
+        <div class="admin-indicador">
+          <span class="admin-indicador-simbolo"><img src="../../assets/icons/admin/ind-estoque-baixo.svg" alt="" /></span>
+          <span class="admin-indicador-dados">
+            <span class="admin-indicador-rotulo">Produtos em alerta de estoque</span>
+            <span class="admin-indicador-valor" id="kpi-estoque">0</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="admin-painel-grade">
+        <div class="admin-painel-coluna">
+          <section class="admin-card" aria-labelledby="titulo-vendas">
+            <div class="admin-card-cabecalho">
+              <div>
+                <h2 class="admin-card-titulo" id="titulo-vendas">Vendas dos últimos 7 dias</h2>
+                <p class="admin-card-subtitulo" id="painel-total-semana"></p>
+              </div>
+            </div>
+            <div class="admin-grafico" id="painel-grafico"></div>
+          </section>
+
+          <section class="admin-card" aria-labelledby="titulo-recentes">
+            <div class="admin-card-cabecalho">
+              <h2 class="admin-card-titulo" id="titulo-recentes">Pedidos recentes</h2>
+              <a class="admin-link-card" href="gestao-pedidos.html">Ver todos</a>
+            </div>
+            <div class="admin-tabela-rolagem">
+              <table class="admin-tabela admin-tabela--compacta">
+                <thead>
+                  <tr>
+                    <th class="c-pedido">Pedido</th>
+                    <th>Cliente</th>
+                    <th class="c-pedido-status">Status</th>
+                    <th class="c-valor col-direita">Valor</th>
+                  </tr>
+                </thead>
+                <tbody id="painel-pedidos-corpo"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <div class="admin-painel-coluna">
+          <section class="admin-card" aria-labelledby="titulo-atalhos">
+            <h2 class="admin-card-titulo" id="titulo-atalhos">Atalhos rápidos</h2>
+            <div class="admin-atalhos">
+              <a class="admin-atalho" href="cadastro-produto.html">
+                <img src="../../assets/icons/admin/nav-cadastro.svg" alt="" />
+                <span class="admin-atalho-textos"><strong>Cadastrar produto</strong><span>Adicione uma peça nova ao catálogo</span></span>
+                <img src="../../assets/icons/arrow-right.svg" alt="" />
+              </a>
+              <a class="admin-atalho" href="gestao-pedidos.html">
+                <img src="../../assets/icons/admin/nav-pedidos.svg" alt="" />
+                <span class="admin-atalho-textos"><strong>Gerenciar pedidos</strong><span>Acompanhe e avance cada etapa</span></span>
+                <img src="../../assets/icons/arrow-right.svg" alt="" />
+              </a>
+              <a class="admin-atalho" href="controle-estoque.html">
+                <img src="../../assets/icons/admin/nav-estoque.svg" alt="" />
+                <span class="admin-atalho-textos"><strong>Conferir estoque</strong><span>Veja o que está acabando</span></span>
+                <img src="../../assets/icons/arrow-right.svg" alt="" />
+              </a>
+              <a class="admin-atalho" href="gerenciamento-produtos.html">
+                <img src="../../assets/icons/admin/nav-produtos.svg" alt="" />
+                <span class="admin-atalho-textos"><strong>Gerenciar produtos</strong><span>Edite, ative ou exclua produtos</span></span>
+                <img src="../../assets/icons/arrow-right.svg" alt="" />
+              </a>
+            </div>
+          </section>
+
+          <section class="admin-card" aria-labelledby="titulo-alertas">
+            <div class="admin-card-cabecalho">
+              <h2 class="admin-card-titulo" id="titulo-alertas">Atenção ao estoque</h2>
+              <a class="admin-link-card" href="controle-estoque.html">Ver estoque</a>
+            </div>
+            <ul class="admin-alertas" id="painel-alertas"></ul>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/shared/admin-dados.js"></script>
+  <script src="../../js/shared/admin.js"></script>
+  <script src="../../js/pages/admin-painel.js"></script>
+</body>
+</html>
