@@ -2,10 +2,35 @@
 // index.js
 //
 // Comportamento da tela inicial (index.html). Quase tudo da home é HTML
-// estático; aqui fica só o carrossel de "Avaliações", com as setas
-// "anterior" e "próxima" passando uma avaliação por vez.
+// estático; aqui ficam:
+//   - o banner do topo, trocado pelo banner salvo no admin ("Banner do site");
+//   - o carrossel de "Avaliações", com as setas "anterior" e "próxima"
+//     passando uma avaliação por vez.
 // Figma: "Tela Inicial" (celular: 196:583).
 // ============================================================================
+
+// Banner: busca o banner atual em js/shared/banner-dados.js (hoje
+// localStorage, depois a API) e aplica imagem, texto alternativo e link.
+// Enquanto carrega (ou se der erro), fica o banner padrão do HTML.
+document.addEventListener('DOMContentLoaded', () => {
+  const secao = document.getElementById('banner-inicial');
+  const imagem = document.getElementById('banner-inicial-imagem');
+  if (!secao || !imagem || !window.JacyBanner) return;
+
+  window.JacyBanner.obterBanner().then((banner) => {
+    imagem.src = banner.imagem;
+    imagem.alt = banner.textoAlternativo || '';
+
+    // Com link de destino, a imagem vira um link clicável
+    if (banner.link) {
+      const link = document.createElement('a');
+      link.href = banner.link;
+      link.className = 'banner-link';
+      secao.replaceChild(link, imagem);
+      link.appendChild(imagem);
+    }
+  });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const lista = document.getElementById('avaliacoes-lista');

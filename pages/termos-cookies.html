@@ -6,7 +6,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" id="meta-viewport" />
+  <!-- Os layouts mobile do Figma foram desenhados num quadro de 700px de
+       largura. Em celulares (tela com menos de 700px), a página é montada com
+       700px e o navegador a reduz para caber na tela: assim textos, header e
+       espaçamentos ficam na mesma proporção do Figma, em vez de usar os
+       valores do quadro de 700px "ao pé da letra" numa tela de ~390px. -->
+  <script>
+    if (window.screen && screen.width < 700) {
+      document.getElementById('meta-viewport').setAttribute('content', 'width=700');
+    }
+  </script>
   <title>Termos de Uso e Política de Cookies — Jacy Modas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

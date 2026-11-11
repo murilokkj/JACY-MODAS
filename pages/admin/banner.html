@@ -1,0 +1,108 @@
+<!--
+  Tela "Banner do site" (área administrativa).
+  Figma: node 466:3630 "Banner da página inicial". O administrador envia uma
+  nova imagem, vê a prévia, preenche o texto alternativo e o link de destino
+  e salva. O banner salvo passa a aparecer na tela inicial da loja.
+  Comportamento: js/pages/admin-banner.js | dados: js/shared/banner-dados.js
+  (pronto para trocar o localStorage por uma API — ver o comentário lá).
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banner do site — Jacy Modas (admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body class="admin" data-admin-pagina="banner">
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="painel.html" class="logo-link">
+        <img src="../../assets/images/logo.png" alt="Jaacy Modas — painel administrativo" class="logo-img" />
+      </a>
+      <div class="btns-right">
+        <span class="icon-btn" role="img" aria-label="Administrador">
+          <img src="../../assets/icons/user.svg" alt="" />
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-area">
+    <!-- Menu lateral montado por js/shared/admin.js -->
+    <nav class="admin-nav" id="admin-nav" aria-label="Navegação administrativa"></nav>
+
+    <main class="admin-conteudo">
+      <div class="admin-cabecalho">
+        <div class="admin-titulo">
+          <img src="../../assets/icons/admin/titulo-banner.svg" alt="" />
+          <h1>Banner da página inicial</h1>
+        </div>
+        <p class="admin-subtitulo">Atualize a imagem de destaque exibida na tela inicial do site.</p>
+      </div>
+
+      <form class="admin-banner" id="form-banner" novalidate>
+        <div class="admin-banner-grade">
+          <!-- Envio da imagem: clique, teclado (Enter/Espaço) ou arrastar e soltar -->
+          <section class="admin-card admin-banner-card" aria-labelledby="titulo-imagem-banner">
+            <h2 class="admin-card-titulo" id="titulo-imagem-banner">Imagem do banner</h2>
+            <div class="admin-banner-envio" id="banner-envio" role="button" tabindex="0"
+                 aria-describedby="banner-envio-regras">
+              <img src="../../assets/icons/admin/banner-enviar.svg" alt="" />
+              <p class="admin-banner-envio-principal" id="banner-envio-principal">Clique para selecionar uma imagem</p>
+              <p class="admin-banner-envio-secundario" id="banner-envio-secundario">ou arraste o arquivo até aqui</p>
+              <p class="admin-banner-envio-regras" id="banner-envio-regras">PNG, JPG ou WebP • até 5 MB</p>
+            </div>
+            <input type="file" id="banner-arquivo" accept="image/png,image/jpeg,image/webp" hidden />
+            <p class="admin-banner-dica">Sugestão: formato horizontal, 1920 × 640 px.</p>
+          </section>
+
+          <!-- Prévia: mostra a imagem escolhida antes de salvar -->
+          <section class="admin-card admin-banner-card" aria-labelledby="titulo-previa-banner">
+            <h2 class="admin-card-titulo" id="titulo-previa-banner">Prévia do novo banner</h2>
+            <div class="admin-banner-previa" id="banner-previa">
+              <div class="admin-banner-previa-vazia" id="banner-previa-vazia">
+                <img src="../../assets/icons/admin/banner-previa.svg" alt="" />
+                <p>Selecione uma imagem para visualizar</p>
+              </div>
+              <img class="admin-banner-previa-imagem" id="banner-previa-imagem" alt="" hidden />
+            </div>
+            <p class="admin-banner-dica">A imagem será publicada após salvar as alterações.</p>
+            <p class="admin-banner-dica">Mantenha textos e elementos importantes no centro.</p>
+          </section>
+        </div>
+
+        <section class="admin-card admin-banner-card" aria-labelledby="titulo-info-banner">
+          <h2 class="admin-card-titulo" id="titulo-info-banner">Informações do banner</h2>
+          <div class="admin-banner-campos">
+            <div class="admin-campo">
+              <label for="banner-alt">Descrição da imagem (texto alternativo)</label>
+              <input type="text" id="banner-alt" maxlength="150" autocomplete="off"
+                     placeholder="Descreva o banner para quem usa leitor de tela" />
+            </div>
+            <div class="admin-campo">
+              <label for="banner-link">Link de destino (opcional)</label>
+              <input type="url" id="banner-link" maxlength="255" autocomplete="off"
+                     placeholder="https://seusite.com.br/colecao" />
+            </div>
+          </div>
+        </section>
+
+        <div class="admin-banner-acoes">
+          <p>As alterações serão aplicadas à página inicial.</p>
+          <button type="button" class="admin-banner-btn admin-banner-btn--cancelar" id="banner-cancelar">CANCELAR</button>
+          <button type="submit" class="admin-banner-btn admin-banner-btn--salvar" id="banner-salvar">SALVAR</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <script src="../../js/shared/admin-dados.js"></script>
+  <script src="../../js/shared/admin.js"></script>
+  <script src="../../js/shared/banner-dados.js"></script>
+  <script src="../../js/pages/admin-banner.js"></script>
+</body>
+</html>

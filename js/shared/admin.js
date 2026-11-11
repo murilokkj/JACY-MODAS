@@ -4,7 +4,7 @@
 // Estrutura comum das telas administrativas (pages/admin/): monta o menu
 // lateral (com a seção atual destacada) e oferece utilitários usados por
 // todas elas. Cada página informa qual é pelo atributo
-// <body data-admin-pagina="produtos|cadastro|estoque|pedidos|painel">.
+// <body data-admin-pagina="produtos|cadastro|estoque|pedidos|painel|banner">.
 // ============================================================================
 
 (function () {
@@ -16,7 +16,9 @@
     { pagina: 'cadastro', href: 'cadastro-produto.html', rotulo: 'Cadastro de produtos', icone: 'nav-cadastro' },
     { pagina: 'estoque', href: 'controle-estoque.html', rotulo: 'Controle de estoque', icone: 'nav-estoque' },
     { pagina: 'pedidos', href: 'gestao-pedidos.html', rotulo: 'Gestão de pedidos', icone: 'nav-pedidos' },
-    { pagina: 'painel', href: 'painel.html', rotulo: 'Painel administrativo', icone: 'nav-painel' }
+    { pagina: 'painel', href: 'painel.html', rotulo: 'Painel administrativo', icone: 'nav-painel' },
+    // Figma: node 455:5309 (menu lateral) / 466:3729 (item ativo)
+    { pagina: 'banner', href: 'banner.html', rotulo: 'Banner do site', icone: 'nav-banner' }
   ];
 
   // Escapa texto digitado pelo administrador antes de colocá-lo em innerHTML

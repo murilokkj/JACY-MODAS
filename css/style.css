@@ -17,10 +17,16 @@
      9. Extras das páginas de Pagamentos, Prazos e entregas e Trocas e devoluções
     10. Área administrativa (pages/admin/): menu lateral, tabelas, cadastro de
         produtos e painel
+    11. Celulares: tamanho mínimo legível dos textos
+    12. Área administrativa: tela "Banner do site" (+ link do banner na
+        tela inicial)
 
    Os designs mobile do Figma usam um quadro de 700px de largura; os valores
-   dentro de "@media (max-width: 768px)" seguem o Figma à risca, e os de
-   "@media (max-width: 480px)" reduzem textos/espaços para celulares menores.
+   dentro de "@media (max-width: 768px)" seguem o Figma à risca. Nos celulares
+   a página é montada com 700px e reduzida para caber na tela (script do meta
+   viewport no <head> de cada página), mantendo a proporção do Figma; a seção
+   11 garante um tamanho mínimo legível para os textos pequenos. As regras de
+   "@media (max-width: 480px)" só valem para janelas de navegador estreitas.
    ============================================================================ */
 
 /* Cores da marca (nomes iguais aos estilos do Figma) */
@@ -6755,5 +6761,564 @@ li.admin-vazio {
   .admin-selecao {
     flex-direction: column;
     align-items: stretch;
+  }
+}
+
+/* ============================================================
+   Celulares: tamanho mínimo legível dos textos
+   Nos celulares a página é montada com 700px de largura (a largura dos
+   quadros mobile do Figma) e o navegador a reduz para caber na tela — ver o
+   <script> do meta viewport no <head> de cada página. Assim header, títulos
+   e espaçamentos ficam na mesma proporção do Figma.
+   Com essa redução (~0,54x numa tela de 375px), os textos que o Figma
+   desenhou com 11–20px no quadro de 700px ficariam com 6–11px reais. Aqui
+   eles sobem para no mínimo 22px no layout de 700px (≈12px reais), mantendo
+   os demais tamanhos do Figma. Só vale entre 481 e 768px de largura de
+   layout, que é o caso dos celulares (sempre 700px).
+   ============================================================ */
+@media (min-width: 481px) and (max-width: 768px) {
+  /* --- Header: busca, gavetas e carrinho --- */
+  body .barra-busca input,
+  body .dp-link,
+  body .dp-btn-ghost,
+  body .dp-registro-aviso p,
+  body .cart-item-var,
+  body .cart-item-preco,
+  body .cep-display,
+  body .frete-info,
+  body .frete-info small,
+  body .frete-info strong,
+  body .frete-preco,
+  body .dp-btn-mini,
+  body .dp-link-inline {
+    font-size: 22px;
+  }
+
+  body .cart-item-qtd {
+    width: 102px;
+    height: 34px;
+  }
+
+  body .cart-item-qtd button,
+  body .cart-item-qtd span {
+    width: 34px;
+    height: 32px;
+    font-size: 22px;
+  }
+
+  /* --- Cards de produto (início, pesquisa, recomendados, favoritos) --- */
+  body .produto-info .produto-parcelas,
+  body .produto-tag,
+  body .avaliacao-autor,
+  body .avaliacao-texto {
+    font-size: 22px;
+  }
+
+  /* --- Pesquisa --- */
+  body .ordenar-input span,
+  body .ordenar-lista button,
+  body .filtro-item,
+  body .filtro-preco-campo label,
+  body .filtro-preco-campo input,
+  body .filtro-salvar,
+  body .pesquisa-vazia {
+    font-size: 22px;
+  }
+
+  /* --- Página de produto --- */
+  body .produto-categoria,
+  body .produto-tag-unidades,
+  body .produto-conteudo .produto-parcelas,
+  body .produto-opcoes h3,
+  body .produto-tamanhos button,
+  body .produto-favoritar span,
+  body .produto-qtde button,
+  body .produto-qtde span,
+  body .produto-comprar-btn span,
+  body .produto-descricao p,
+  body .produto-descricao ul,
+  body .produto-entregas .dp-input,
+  body .produto-entregas .cep-display,
+  body .produto-entregas .dp-btn-mini,
+  body .produto-entregas .dp-link-inline,
+  body .produto-entregas .frete-info strong {
+    font-size: 22px;
+  }
+
+  body .produto-descricao p,
+  body .produto-descricao ul {
+    line-height: 32px;
+  }
+
+  /* --- Registro e endereço do cadastro --- */
+  body .registro-campo label,
+  body .registro-input,
+  body .registro-select,
+  body .registro-erro-msg,
+  body .registro-card .requisito-item,
+  body .registro-checkbox-linha label {
+    font-size: 22px;
+  }
+
+  /* Indicador de passos: no celular aparece só o nome do passo atual */
+  body .registro-passo-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    font-size: 20px;
+  }
+
+  body .registro-passo-label {
+    display: none;
+    font-size: 22px;
+  }
+
+  body .registro-passo.ativo .registro-passo-label {
+    display: inline;
+  }
+
+  /* --- Breadcrumbs e subtítulos (pedidos, favoritos, segurança, endereços) --- */
+  body .pedidos-breadcrumb,
+  body .favoritos-main .pedidos-breadcrumb,
+  body .enderecos-breadcrumb,
+  body .pedidos-subtitulo,
+  body .favoritos-main .pedidos-subtitulo,
+  body .enderecos-titulo p {
+    font-size: 22px;
+  }
+
+  /* --- Meus pedidos e detalhe --- */
+  body .order-card-numero,
+  body .order-card-total .valor,
+  body .info-card h2,
+  body .itens-comprados h2,
+  body .item-comprado-preco {
+    font-size: 24px;
+  }
+
+  body .order-card-data,
+  body .order-card-total .label,
+  body .order-card-btn,
+  body .info-linhas,
+  body .resumo-linha,
+  body .resumo-linha.total,
+  body .item-comprado-nome,
+  body .timeline-titulo {
+    font-size: 22px;
+  }
+
+  body .status-badge,
+  body .item-comprado-variacao,
+  body .timeline-data {
+    font-size: 20px;
+  }
+
+  /* "Código: JC..." do rastreio vem com font-size inline em pedidos-data.js */
+  body .info-card .pedidos-titulo span[style] {
+    font-size: 20px !important;
+  }
+
+  /* --- Favoritos --- */
+  body .favoritos-vazio-card p,
+  body .favoritos-vazio-card .btn-primario-pink {
+    font-size: 22px;
+  }
+
+  /* --- Segurança e privacidade --- */
+  body .campo-senha label,
+  body .input-com-icone input,
+  body .requisitos > span,
+  body .requisito-item,
+  body .seguranca-card .btn-primario-pink,
+  body .seguranca-card .btn-secundario-outline,
+  body .email-atual .rotulo,
+  body .email-atual .valor,
+  body .toggle-row p {
+    font-size: 22px;
+  }
+
+  /* --- Minha conta --- */
+  body .conta-campos,
+  body .conta-link-card .textos p {
+    font-size: 22px;
+  }
+
+  body .conta-link-card .textos h3 {
+    font-size: 24px;
+  }
+
+  body .conta-campo-linha .rotulo {
+    width: 220px;
+  }
+
+  body .conta-secao.editando .conta-campo-linha input {
+    font-size: 22px;
+  }
+
+  /* --- Meus endereços --- */
+  body .btn-enderecos-secundario,
+  body .btn-enderecos-primario,
+  body .endereco-campos,
+  body .endereco-card-rodape .nota,
+  body .editando-texto,
+  body .endereco-input-grupo input,
+  body .btn-form-cancelar,
+  body .btn-form-salvar,
+  body .enderecos-barra-selecao .contagem,
+  body .btn-remover-selecionados,
+  body .btn-definir-principal,
+  body .enderecos-vazio {
+    font-size: 22px;
+  }
+
+  body .endereco-tag,
+  body .endereco-status,
+  body .endereco-card-rodape .selecionado-texto,
+  body .endereco-input-grupo span {
+    font-size: 20px;
+  }
+
+  body .endereco-campo .rotulo {
+    width: 140px;
+  }
+
+  body .endereco-input-grupo input {
+    height: 52px;
+  }
+
+  body .endereco-input-grupo.largura-uf {
+    width: 90px;
+  }
+
+  body .endereco-input-grupo.largura-cep,
+  body .endereco-input-grupo.largura-complemento {
+    width: 190px;
+  }
+
+  /* --- Recuperar senha --- */
+  body .recuperar-campo label,
+  body .recuperar-campo input,
+  body .recuperar-texto-bloco p,
+  body .recuperar-btn,
+  body .recuperar-btn-outline,
+  body .recuperar-timer,
+  body .recuperar-voltar {
+    font-size: 22px;
+  }
+
+  /* --- Políticas e páginas informativas --- */
+  body .politica-atualizacao {
+    font-size: 20px;
+  }
+
+  body .legal-section h2,
+  body .parte-header h2 {
+    font-size: 24px;
+  }
+
+  body .legal-section-body p,
+  body .bullet-list li {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  body .legal-section-body a.politica-cta {
+    font-size: 22px;
+  }
+
+  /* --- Notificações: largura da tela e texto legível --- */
+  body .notificacoes {
+    right: 24px;
+    width: calc(100vw - 48px);
+  }
+
+  body .notificacao-texto {
+    font-size: 22px;
+  }
+
+  body .notificacao-icone {
+    width: 28px;
+    height: 28px;
+  }
+
+  body .notificacao-fechar {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+    line-height: 30px;
+  }
+}
+
+
+/* ============================================================================
+   12. Área administrativa: tela "Banner do site" (pages/admin/banner.html)
+   Figma: node 466:3630 "Banner da página inicial". Reaproveita o layout do
+   admin (.admin-conteudo, .admin-titulo, .admin-card, .admin-campo); aqui
+   ficam só as partes próprias da tela.
+   ============================================================================ */
+
+/* Na tela inicial, o banner com link de destino continua ocupando a largura */
+.banner-link {
+  display: block;
+}
+
+/* Título + descrição logo abaixo */
+.admin-cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-cabecalho h1 {
+  line-height: 42px;
+}
+
+.admin-subtitulo {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--preto);
+}
+
+.admin-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-banner-grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.admin-banner-card {
+  border-radius: 24px;
+  padding-bottom: 28px;
+}
+
+/* Cartão "Informações do banner": um pouco mais compacto (Figma 466:3670) */
+.admin-banner > .admin-banner-card {
+  padding: 20px 24px 24px;
+}
+
+.admin-banner > .admin-banner-card .admin-card-titulo {
+  margin-bottom: 13px;
+}
+
+.admin-banner-card .admin-card-titulo {
+  margin-bottom: 16px;
+  line-height: 27px;
+}
+
+/* Área de envio: borda tracejada rosa, clicável e alvo de arrastar e soltar */
+.admin-banner-envio {
+  height: 208px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: var(--branco);
+  border: 1px dashed var(--rosa);
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.admin-banner-envio:hover,
+.admin-banner-envio:focus-visible,
+.admin-banner-envio.arrastando {
+  outline: none;
+  background: var(--admin-rosa-claro);
+}
+
+.admin-banner-envio.arrastando {
+  border-style: solid;
+}
+
+.admin-banner-envio img {
+  margin-bottom: 14px;
+}
+
+.admin-banner-envio p {
+  margin: 0;
+  max-width: 100%;
+  color: var(--preto);
+  overflow-wrap: anywhere;
+}
+
+.admin-banner-envio-principal {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.admin-banner-envio-secundario {
+  margin-top: 6px !important;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.admin-banner-envio-regras {
+  margin-top: 19px !important;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* Com arquivo escolhido, o nome do arquivo fica em rosa */
+.admin-banner-envio.com-arquivo .admin-banner-envio-principal {
+  color: var(--rosa);
+}
+
+.admin-banner-dica {
+  margin: 15px 0 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--preto);
+}
+
+.admin-banner-dica + .admin-banner-dica {
+  margin-top: 6px;
+}
+
+/* Prévia: mesmo recorte que o banner terá na tela inicial */
+.admin-banner-previa {
+  height: 184px;
+  margin-bottom: 5px;
+  background: var(--branco);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-banner-previa-vazia {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.admin-banner-previa-vazia p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--preto);
+}
+
+.admin-banner-previa-imagem {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Campos de texto alternativo e link (dois lado a lado) */
+.admin-banner-campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.admin-banner-campos .admin-campo {
+  gap: 4px;
+}
+
+.admin-banner-campos .admin-campo label {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.admin-banner-campos .admin-campo input {
+  height: 44px;
+  border-color: var(--branco);
+  font-size: 12px;
+}
+
+.admin-banner-campos .admin-campo input:focus {
+  border-color: var(--rosa);
+}
+
+.admin-banner-campos .admin-campo input.erro {
+  border-color: #ff001a;
+}
+
+/* Ações: aviso à esquerda e os dois botões grandes */
+.admin-banner-acoes {
+  display: grid;
+  grid-template-columns: 304px minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-banner-acoes p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--preto);
+}
+
+.admin-banner-btn {
+  height: 64px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.admin-banner-btn--cancelar {
+  background: rgba(255, 9, 156, 0.05);
+  color: var(--preto-fraco);
+}
+
+.admin-banner-btn--cancelar:hover {
+  background: rgba(255, 9, 156, 0.1);
+}
+
+.admin-banner-btn--salvar {
+  background: var(--rosa);
+  color: var(--branco);
+}
+
+.admin-banner-btn--salvar:hover {
+  filter: brightness(0.94);
+}
+
+.admin-banner-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (max-width: 1100px) {
+  .admin-banner-acoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-banner-acoes p {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-banner-grade,
+  .admin-banner-campos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-banner-acoes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-banner-btn {
+    height: 56px;
   }
 }
